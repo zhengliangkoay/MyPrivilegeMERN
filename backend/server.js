@@ -1,11 +1,14 @@
 import express from 'express'
+import path from 'path'
 import dotenv from 'dotenv'
 import connectDB from './config/db.js'
+import morgan from 'morgan'
 import colors from 'colors'
+import { notFound,errorHandler } from './middleware/errorMiddleware.js' 
 import morgan from 'morgan'
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
-import { notFound,errorHandler } from './middleware/errorMiddleware.js' 
+import uploadRoutes from './routes/uploadRoutes.js'
 
 dotenv.config()
 
@@ -25,9 +28,14 @@ app.get('/',(req,res) =>{
 
 app.use('/api/products',productRoutes)
 app.use('/api/users',userRoutes)
+app.use('/api/upload',uploadRoutes)
+
+const __dirname = path.resolve()
+app.use('/upload', express.static(path.join(__dirname, '/upload')))
 
 app.use(notFound)
 app.use(errorHandler)
+
 
 const PORT = process.env.PORT || 5000
 
