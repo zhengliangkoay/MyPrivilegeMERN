@@ -29,7 +29,7 @@ const Header = () => {
               height="30"
               className="d-inline-block align-top"
             />{' '}
-          MyPrivilege</Navbar.Brand>
+          <b>MyPrivilege</b></Navbar.Brand>
           
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
@@ -38,18 +38,18 @@ const Header = () => {
                 <NavDropdown title={userInfo.name} id='username'>
                   
                   <NavDropdown.Item>
-                  <Nav.Link as={Link} to="/profile">Profile</Nav.Link>
+                  <Nav.Link as={Link} to="/profile"><b>Profile</b></Nav.Link>
                   </NavDropdown.Item> 
 
                   <NavDropdown.Item onClick={logoutHandler}>
-                  <Nav.Link>Logout</Nav.Link>
+                  <Nav.Link><b>Logout</b></Nav.Link>
                   </NavDropdown.Item> 
                 </NavDropdown>
 
               ) : 
               <Nav.Link as={Link} to="/login"> 
               <i className='fas fa-user'/>
-              Sign In
+              <b> Sign In </b>
               </Nav.Link> }
               </Nav>
           </Navbar.Collapse>

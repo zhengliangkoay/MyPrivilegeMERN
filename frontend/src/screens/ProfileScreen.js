@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import FormContainer from '../components/FormContainer'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
@@ -24,7 +25,7 @@ const ProfileScreen =  () => {
   const { userInfo } = userLogin
 
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
-  const { success } = userUpdateProfile
+  const {success} = userUpdateProfile
 
 //   const orderListMy = useSelector((state) => state.orderListMy)
 //   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
@@ -57,7 +58,8 @@ let navigate = useNavigate();
   return (
     <Row>
     <Col md={12}>
-        <h2>User Profile</h2>
+    <FormContainer>
+        <h1>User Profile</h1>
         {message && <Message variant='danger'>{message}</Message>}
         {error && <Message variant='danger'>{error}</Message>}
         {success && <Message variant='success'>Profile Updated</Message>}
@@ -103,11 +105,11 @@ let navigate = useNavigate();
               ></Form.Control>
             </Form.Group>
 
-            <Button className='mt-3' type='submit' variant='primary'>
+            <Button className='mt-4' type='submit' variant='primary'>
               Update
             </Button>
           </Form>
-        
+          </FormContainer>
         </Col>
     </Row>
   )

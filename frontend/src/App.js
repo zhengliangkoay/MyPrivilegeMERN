@@ -7,6 +7,8 @@ import ProductScreen from './screens/ProductScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import ProductListScreen from './screens/ProductListScreen';
+import ProductEditScreen from './screens/ProductEditScreen';
 import { Container } from 'react-bootstrap'
 
 
@@ -21,6 +23,8 @@ const App = () => {
           <Route path = "/register" element={<RegisterScreen/>} />
           <Route path = "/profile" element={<ProfileScreen/>} />
           <Route path = "/product/:id" element={<ProductScreen/>} />
+          <Route path = "/admin/productlist" element={<ProductListScreen/>} />
+          <Route path = "/admin/product/:id/edit" element={<ProductEditScreen/>} />
           <Route path = "/" element={<HomeScreen/>} />
         </Routes>
         </Container>
