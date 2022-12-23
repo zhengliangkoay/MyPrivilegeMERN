@@ -11,6 +11,7 @@ import UserListScreen from './screens/UserListScreen';
 import UserEditScreen from './screens/UserEditScreen';
 import ProductListScreen from './screens/ProductListScreen';
 import ProductEditScreen from './screens/ProductEditScreen';
+import CartScreen from './screens/CartScreen';
 import { Container } from 'react-bootstrap'
 
 
@@ -25,13 +26,16 @@ const App = () => {
           <Route path = "/register" element={<RegisterScreen/>} />
           <Route path = "/profile" element={<ProfileScreen/>} />
           <Route path = "/product/:id" element={<ProductScreen/>} />
+          <Route path = "/cart/:id" element={<CartScreen/>} />
+          <Route path= "/cart" element={<CartScreen/>} />
           <Route path = "/admin/userlist" element={<UserListScreen/>} />
           <Route path = "/admin/user/:id/edit" element={<UserEditScreen/>} />
-          <Route path = "/admin/productlist" element={<ProductListScreen/>} />
+          <Route path = "/admin/productlist" element={<ProductListScreen/>} exact />
+          {/* <Route path = "/admin/productlist/:pageNumber" element={<ProductListScreen/>} exact/> */}
           <Route path = "/admin/product/:id/edit" element={<ProductEditScreen/>} />
-          <Route path = "/search/:keyword" element={<HomeScreen/>} />
-          <Route path = "/page/:pageNumber" element={<HomeScreen/>} />
-          <Route path = "/search/:keyword/page/:pageNumber" element={<HomeScreen/>} />
+          <Route path = "/search/:keyword" element={<HomeScreen/>} exact/>
+          {/* <Route path = "/search/:keyword/page/:pageNumber" element={<HomeScreen/>} exact/> */}
+          {/* <Route path = "/page/:pageNumber" element={<HomeScreen/>} exact/> */}
           <Route path = "/" element={<HomeScreen/>} />
         </Routes>
         </Container>

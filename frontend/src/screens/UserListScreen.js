@@ -74,28 +74,19 @@ let navigate = useNavigate();
                   )}
                 </td>
                 <td>
-                  {/* <LinkContainer to={`/admin/user/${user._id}/edit`}>
-                    <Button variant='light' className='btn-sm'>
-                      <i className='fas fa-edit'></i>
-                    </Button>
-                  </LinkContainer> */}
-
-                  <Nav.Link as={Link} to={`/admin/user/${user._id}/edit`}> 
-                    <Button variant='light' className='btn-sm'>
+                  <Link to={`/admin/user/${user._id}/edit`} > 
+                    <Button variant='light' className='btn-sm' style ={{margin : '0px 10px'}}>
                     <i className='fas fa-edit'/>
                     </Button>
-                  </Nav.Link> 
-
-
+                  </Link> 
                   <Button
                     variant='danger'
                     className='btn-sm'
+                    style ={{margin : '0px 10px'}}
                     onClick={() => deleteHandler(user._id)}
                   >
                     <i className='fas fa-trash'></i>
                   </Button>
-
-                 
                 </td>
               </tr>
             ))}

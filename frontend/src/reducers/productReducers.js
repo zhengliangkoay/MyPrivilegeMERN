@@ -22,7 +22,7 @@ import {
     PRODUCT_UPDATE_RESET,
     PRODUCT_TOP_REQUEST,
     PRODUCT_TOP_SUCCESS,
-    PRODUCT_TOP_FAIL,
+    PRODUCT_TOP_FAIL
   } from '../constants/productConstants'
   
   export const productListReducer = (state = { products: [] }, action) => {
@@ -33,8 +33,8 @@ import {
         return {
           loading: false,
           products: action.payload.products,
-          pages: action.payload.pages,
-          page: action.payload.page,
+          pages:action.payload.pages,
+          page:action.payload.page
         }
       case PRODUCT_LIST_FAIL:
         return { loading: false, error: action.payload }
@@ -117,12 +117,12 @@ import {
     }
   }
   
-  export const productTopRatedReducer = (state = { products: [] }, action) => {
+  export const productTopRatedReducer = (state = { topProducts: [] }, action) => {
     switch (action.type) {
       case PRODUCT_TOP_REQUEST:
-        return { loading: true, products: [] }
+        return { loading: true, topProducts: [] }
       case PRODUCT_TOP_SUCCESS:
-        return { loading: false, products: action.payload }
+        return { loading: false, topProducts: action.payload }
       case PRODUCT_TOP_FAIL:
         return { loading: false, error: action.payload }
       default:

@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from 'react'
-import {Link, useParams} from 'react-router-dom'
-import { Row, Col, Image, ListGroup, Button, Form} from 'react-bootstrap'
+import {Link, useParams, useNavigate} from 'react-router-dom'
+import { Row, Col, Image, ListGroup, Button, Form, Card} from 'react-bootstrap'
 import Rating from '../components/Rating'
 import { listProductDetails, createProductReview } from '../actions/productActions'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,6 +14,7 @@ const ProductScreen = () => {
     const params = useParams();
     //const product = products.find((p) => p._id === params.id)
 
+    const [qty, setQty] = useState(1)
     const [rating, setRating] = useState(0)
     const [comment, setComment] = useState('')
 
@@ -40,7 +41,12 @@ const ProductScreen = () => {
       dispatch(listProductDetails(params.id))
     }, [dispatch, params, successProductReview])
 
-    
+  let navigate = useNavigate();  
+
+  const addToCartHandler = () => {
+      navigate(`/cart/${params.id}?qty=${qty}`)
+  }
+ 
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(
@@ -58,12 +64,13 @@ const ProductScreen = () => {
 
       {loading ? <Loader/> : error ? ( <Message variant='danger'>{error}</Message>): (
       <>
-      <Meta title={product.name} />
+      <Meta title = {product.name}/>
       <Row>
       <Col md={7}>
         <Image src = {product.image} alt={product.name} fluid /> 
       </Col>
-      <Col md={4}>
+      <Col md={5}>
+      <Card>
             <ListGroup variant='flush'>
                 <ListGroup.Item>
                   <h3>{product.name}</h3>
@@ -81,8 +88,48 @@ const ProductScreen = () => {
                   <ListGroup.Item>
                     Status: {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}
                   </ListGroup.Item>
-              </ListGroup>
+                  {product.countInStock > 0 && (
+                    <ListGroup.Item>
+                      <Row>
+                        <Col md={2} >Qty: </Col>
+                        <Col md={3}>
+                          <Form.Control
+                            as='select' //select box
+                            value={qty}  
+                            onChange={(e) => setQty(e.target.value)}
+                          >
+                            {[...Array(product.countInStock).keys()].map(
+                              (x) => (
+                                <option key={x + 1} value={x + 1}>
+                                  {x + 1}
+                                </option>
+                              )
+                            )}
+                          </Form.Control>
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  )}
+
+                  <ListGroup.Item>
+                    <Button
+                      onClick={addToCartHandler}
+                      className='btn btn-primary'
+                      type='button'
+                      disabled={product.countInStock === 0}
+                    >
+                      Add To Cart
+                    </Button>
+                  </ListGroup.Item>
+
+                  
+                </ListGroup>
+            </Card>
         </Col>
+       
+        
+
+        
       </Row>
       <Row>
         <Col md ={6}>
@@ -134,7 +181,7 @@ const ProductScreen = () => {
                           onChange={(e) => setComment(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
-                      <Button 
+                      <Button
                         className='mt-4'
                         disabled={loadingProductReview}
                         type='submit'

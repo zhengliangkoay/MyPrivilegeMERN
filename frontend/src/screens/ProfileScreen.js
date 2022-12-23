@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Form, Button, Row, Col } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
+import { Form, Button, Row, Col } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -31,7 +31,7 @@ const ProfileScreen =  () => {
 
 //   const orderListMy = useSelector((state) => state.orderListMy)
 //   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
-let navigate = useNavigate();
+  let navigate = useNavigate();
 
   useEffect(() => {
     if (!userInfo) {
@@ -60,7 +60,7 @@ let navigate = useNavigate();
   return (
     <Row>
     <Col md={12}>
-    <FormContainer>     
+    <FormContainer>
     {userInfo && userInfo.isAdmin ? (
         <h1>Admin Profile</h1>) : (
           <h1>User Profile</h1>

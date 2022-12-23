@@ -10,8 +10,10 @@ const ProductCarousel = () => {
   const dispatch = useDispatch()
 
   const productTopRated = useSelector((state) => state.productTopRated)
-  const { loading, error, products } = productTopRated
-
+  const { loading, error, topProducts} = productTopRated
+  console.log(productTopRated)
+  console.log(topProducts)
+  
   useEffect(() => {
     dispatch(listTopProducts())
   }, [dispatch])
@@ -22,14 +24,14 @@ const ProductCarousel = () => {
     <Message variant='danger'>{error}</Message>
   ) : (
     <Carousel pause='hover' className='bg-dark'>
-      {products.map((product) => (
-        <Carousel.Item key={product._id}>
-          <Link to={`/product/${product._id}`}>
-            <Image src={product.image} alt={product.name} fluid />
+      {topProducts.map((topProduct) => (
+        <Carousel.Item key={topProduct._id}>
+          <Link to={`/product/${topProduct._id}`}>
+            <Image src={topProduct.image} alt={topProduct.name} fluid />
             <Carousel.Caption className='carousel-caption'>
-              <h2>
-                {product.name} (RM {product.price})
-              </h2>
+              <h1>
+                {topProduct.name} (RM {topProduct.price})
+              </h1>
             </Carousel.Caption>
           </Link>
         </Carousel.Item>

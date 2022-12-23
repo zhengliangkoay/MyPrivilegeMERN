@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link, NavLink, Routes, Route} from 'react-router-dom'
+import {Route, Link, NavLink, useNavigate} from 'react-router-dom'
  import { useDispatch, useSelector } from 'react-redux'
 //import { LinkContainer } from 'react-router-bootstrap'
 import Container from 'react-bootstrap/Container'
@@ -17,6 +17,8 @@ const Header = () => {
     dispatch(logout())
    }
 
+   const history = useNavigate();
+
   return (
     <header>
       <Navbar collapseOnSelect bg="light" variant="light" expand="lg"  >
@@ -33,37 +35,51 @@ const Header = () => {
           
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
-            {/* <Routes>
-              <Route render = {({history}) => <SearchBox history={history}/>}/>
-            </Routes> */}
-            <SearchBox />
+          
+          <SearchBox/>
+          
           <Nav className="justify-content-end flex-grow-1">
+          
+          <Nav.Link as={Link} to='/cart'>
+                  <i className='fas fa-shopping-cart'/> 
+                  <b> Cart </b>
+          </Nav.Link>
+
+         
           {userInfo ? (
-                <NavDropdown title={userInfo.name} id='username'>
+                <NavDropdown title=<b>{userInfo.name}</b> id='username'>
                   
                   <NavDropdown.Item>
-                  <Nav.Link as={Link} to="/profile"><b>Profile</b></Nav.Link>
+                    <Nav.Link as={Link} to="/profile">
+                      <b>Profile</b>
+                    </Nav.Link>
                   </NavDropdown.Item> 
 
                   <NavDropdown.Item onClick={logoutHandler}>
-                  <Nav.Link><b>Logout</b></Nav.Link>
+                    <Nav.Link><b>Logout</b></Nav.Link>
                   </NavDropdown.Item> 
                 </NavDropdown>
 
               ) : 
+
               <Nav.Link as={Link} to="/login"> 
               <i className='fas fa-user'/>
               <b> Sign In </b>
               </Nav.Link> }
+
               {userInfo && userInfo.isAdmin && (
-                <NavDropdown title='Admin' id='adminMenu'>
+                <NavDropdown title=<b>Admin</b> id='adminMenu'>
                   
                 <NavDropdown.Item>
-                <Nav.Link as={Link} to="/admin/userlist">Users</Nav.Link>
+                  <Nav.Link as={Link} to="/admin/userlist">
+                    <b>Users</b>
+                  </Nav.Link>
                 </NavDropdown.Item> 
 
                 <NavDropdown.Item>
-                <Nav.Link as={Link} to="admin/productlist">Products</Nav.Link>
+                  <Nav.Link as={Link} to="admin/productlist">
+                    <b>Products</b>
+                  </Nav.Link>
                 </NavDropdown.Item> 
 
                 {/* <NavDropdown.Item>
