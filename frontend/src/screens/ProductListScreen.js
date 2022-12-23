@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 //import Container from 'react-bootstrap/Container'
-//import Paginate from '../components/Paginate'
+import Paginate from '../components/Paginate'
 import {
   listProducts,
   deleteProduct,
@@ -13,13 +13,15 @@ import {
 } from '../actions/productActions'
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 
-const ProductListScreen = ({ history, match }) => {
-  //const pageNumber = match.params.pageNumber || 1
+const ProductListScreen = () => {
+  
+  let params = useParams();
+  const pageNumber = params.pageNumber || 1
 
   const dispatch = useDispatch()
 
   const productList = useSelector((state) => state.productList)
-  const { loading, error, products } = productList
+  const { loading, error, products, page, pages } = productList
 
   const productDelete = useSelector((state) => state.productDelete)
   const {
@@ -51,14 +53,15 @@ const ProductListScreen = ({ history, match }) => {
     if (successCreate) {
       navigate(`/admin/product/${createdProduct._id}/edit`)
     } else {
-      dispatch(listProducts())
+      dispatch(listProducts('',pageNumber))
     }
   }, [
     dispatch,
     userInfo,
     successDelete,
     successCreate,
-    createdProduct
+    createdProduct,
+    pageNumber
   ])
 
   const deleteHandler = (id) => {
@@ -115,18 +118,19 @@ const ProductListScreen = ({ history, match }) => {
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
-                  <td>${product.price}</td>
+                  <td>RM {product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
                   <td>
                     <Link to={`/admin/product/${product._id}/edit`}>
-                      <Button variant='light' className='btn-sm'>
+                      <Button variant='light' className='btn-sm' style ={{margin : '0px 10px'}}>
                         <i className='fas fa-edit'></i>
                       </Button>
                     </Link>
                     <Button
                       variant='danger'
                       className='btn-sm'
+                      style ={{margin : '0px 10px'}}
                       onClick={() => deleteHandler(product._id)}
                     >
                       <i className='fas fa-trash'></i>
@@ -136,7 +140,7 @@ const ProductListScreen = ({ history, match }) => {
               ))}
             </tbody>
           </Table>
-          {/* <Paginate pages={pages} page={page} isAdmin={true} /> */}
+          <Paginate pages={pages} page={page} isAdmin={true} />
         </>
       )}
     </>

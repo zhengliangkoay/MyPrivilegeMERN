@@ -1,18 +1,20 @@
 import React, { useEffect, useState} from 'react'
-import {Link, useParams} from 'react-router-dom'
-import { Row, Col, Image, ListGroup, Button, Form} from 'react-bootstrap'
+import {Link, useParams, useNavigate} from 'react-router-dom'
+import { Row, Col, Image, ListGroup, Button, Form, Card} from 'react-bootstrap'
 import Rating from '../components/Rating'
 import { listProductDetails, createProductReview } from '../actions/productActions'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
+import Meta from '../components/Meta'
 
 const ProductScreen = () => {
     const dispatch = useDispatch()
     const params = useParams();
     //const product = products.find((p) => p._id === params.id)
 
+    const [qty, setQty] = useState(1)
     const [rating, setRating] = useState(0)
     const [comment, setComment] = useState('')
 
@@ -39,7 +41,12 @@ const ProductScreen = () => {
       dispatch(listProductDetails(params.id))
     }, [dispatch, params, successProductReview])
 
-    
+  let navigate = useNavigate();  
+
+  const addToCartHandler = () => {
+      navigate(`/cart/${params.id}?qty=${qty}`)
+  }
+ 
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(
@@ -57,11 +64,13 @@ const ProductScreen = () => {
 
       {loading ? <Loader/> : error ? ( <Message variant='danger'>{error}</Message>): (
       <>
+      <Meta title = {product.name}/>
       <Row>
       <Col md={7}>
         <Image src = {product.image} alt={product.name} fluid /> 
       </Col>
-      <Col md={4}>
+      <Col md={5}>
+      <Card>
             <ListGroup variant='flush'>
                 <ListGroup.Item>
                   <h3>{product.name}</h3>
@@ -72,15 +81,55 @@ const ProductScreen = () => {
                       text={` ${product.numReviews} reviews`}
                     />
                   </ListGroup.Item>
-                  <ListGroup.Item> Price: ${product.price} </ListGroup.Item>
+                  <ListGroup.Item> Price: RM {product.price} </ListGroup.Item>
                   <ListGroup.Item>
                     Description: {product.description}
                   </ListGroup.Item>
                   <ListGroup.Item>
                     Status: {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}
                   </ListGroup.Item>
-              </ListGroup>
+                  {product.countInStock > 0 && (
+                    <ListGroup.Item>
+                      <Row>
+                        <Col md={2} >Qty: </Col>
+                        <Col md={3}>
+                          <Form.Control
+                            as='select' //select box
+                            value={qty}  
+                            onChange={(e) => setQty(e.target.value)}
+                          >
+                            {[...Array(product.countInStock).keys()].map(
+                              (x) => (
+                                <option key={x + 1} value={x + 1}>
+                                  {x + 1}
+                                </option>
+                              )
+                            )}
+                          </Form.Control>
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  )}
+
+                  <ListGroup.Item>
+                    <Button
+                      onClick={addToCartHandler}
+                      className='btn btn-primary'
+                      type='button'
+                      disabled={product.countInStock === 0}
+                    >
+                      Add To Cart
+                    </Button>
+                  </ListGroup.Item>
+
+                  
+                </ListGroup>
+            </Card>
         </Col>
+       
+        
+
+        
       </Row>
       <Row>
         <Col md ={6}>
@@ -108,7 +157,7 @@ const ProductScreen = () => {
                   )}
                   {userInfo ? (
                     <Form onSubmit={submitHandler}>
-                      <Form.Group controlId='rating'>
+                      <Form.Group className='mt-3' controlId='rating'>
                         <Form.Label>Rating</Form.Label>
                         <Form.Control
                           as='select'
@@ -123,7 +172,7 @@ const ProductScreen = () => {
                           <option value='5'>5 - Excellent</option>
                         </Form.Control>
                       </Form.Group>
-                      <Form.Group controlId='comment'>
+                      <Form.Group className='mt-3' controlId='comment'>
                         <Form.Label>Comment</Form.Label>
                         <Form.Control
                           as='textarea'
@@ -133,6 +182,7 @@ const ProductScreen = () => {
                         ></Form.Control>
                       </Form.Group>
                       <Button
+                        className='mt-4'
                         disabled={loadingProductReview}
                         type='submit'
                         variant='primary'

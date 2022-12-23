@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Form, Button, Row, Col } from 'react-bootstrap'
-import { Link, useNavigate } from 'react-router-dom'
+import { Form, Button, Row, Col } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -29,7 +29,7 @@ const ProfileScreen =  () => {
 
 //   const orderListMy = useSelector((state) => state.orderListMy)
 //   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
-let navigate = useNavigate();
+  let navigate = useNavigate();
 
   useEffect(() => {
     if (!userInfo) {
@@ -40,8 +40,8 @@ let navigate = useNavigate();
         dispatch(getUserDetails('profile'))
         //dispatch(listMyOrders())
       } else {
-        setName(user.name)
-        setEmail(user.email)
+        setName(userInfo.name)
+        setEmail(userInfo.email)
       }
     }
   }, [dispatch, userInfo, user, success])
@@ -59,7 +59,10 @@ let navigate = useNavigate();
     <Row>
     <Col md={12}>
     <FormContainer>
-        <h1>User Profile</h1>
+    {userInfo && userInfo.isAdmin ? (
+        <h1>Admin Profile</h1>) : (
+          <h1>User Profile</h1>
+        )}
         {message && <Message variant='danger'>{message}</Message>}
         {error && <Message variant='danger'>{error}</Message>}
         {success && <Message variant='success'>Profile Updated</Message>}
