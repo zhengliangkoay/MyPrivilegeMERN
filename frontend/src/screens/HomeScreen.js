@@ -53,7 +53,7 @@ const HomeScreen = () => {
       {(products.length > 0)? 
         (
           <>
-            <h1>Products found</h1>
+            <h1>All Products</h1>
             <h5 style={{fontWeight: 'normal', color: 'lightseagreen'}}>Jom! Get your cravings fixed now.</h5>
               <Row>
                     {products.map((product) => (
