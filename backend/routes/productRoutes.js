@@ -1,7 +1,15 @@
 import express from 'express'
 const router = express.Router()
 import { protect, admin } from '../middleware/authMiddleware.js'
-import { getProductById, getProducts,deleteProduct,updateProduct,createProduct, createProductReview, getTopProducts } from '../controllers/productController.js'
+import { 
+    getProductById, 
+    getProducts,
+    deleteProduct,
+    updateProduct,
+    createProduct,
+    createProductReview, 
+    getTopProducts 
+} from '../controllers/productController.js'
 
 
 router

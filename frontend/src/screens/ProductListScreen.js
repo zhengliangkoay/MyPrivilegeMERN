@@ -110,6 +110,7 @@ const ProductListScreen = () => {
                 <th>PRICE</th>
                 <th>CATEGORY</th>
                 <th>BRAND</th>
+                <th>STOCK</th>
                 <th></th>
               </tr>
             </thead>
@@ -121,6 +122,7 @@ const ProductListScreen = () => {
                   <td>RM {product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
+                  <td>{product.countInStock}</td>
                   <td>
                     <Link to={`/admin/product/${product._id}/edit`}>
                       <Button variant='light' className='btn-sm' style ={{margin : '0px 10px'}}>
