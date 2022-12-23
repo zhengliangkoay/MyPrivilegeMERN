@@ -7,7 +7,8 @@ import {
   productReviewCreateReducer,
   productDeleteReducer,
   productCreateReducer,
-  productUpdateReducer
+  productUpdateReducer,
+  productTopRatedReducer
 } from './reducers/productReducers'
 import { 
   userLoginReducer, 
@@ -33,6 +34,7 @@ const reducer = combineReducers({
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,
+  productTopRated: productTopRatedReducer,
 })
 
 const middleware = [thunk]

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
+import Meta from '../components/Meta'
 
 const ProductScreen = () => {
     const dispatch = useDispatch()
@@ -57,6 +58,7 @@ const ProductScreen = () => {
 
       {loading ? <Loader/> : error ? ( <Message variant='danger'>{error}</Message>): (
       <>
+      <Meta title={product.name} />
       <Row>
       <Col md={7}>
         <Image src = {product.image} alt={product.name} fluid /> 
@@ -72,7 +74,7 @@ const ProductScreen = () => {
                       text={` ${product.numReviews} reviews`}
                     />
                   </ListGroup.Item>
-                  <ListGroup.Item> Price: ${product.price} </ListGroup.Item>
+                  <ListGroup.Item> Price: RM {product.price} </ListGroup.Item>
                   <ListGroup.Item>
                     Description: {product.description}
                   </ListGroup.Item>
@@ -108,7 +110,7 @@ const ProductScreen = () => {
                   )}
                   {userInfo ? (
                     <Form onSubmit={submitHandler}>
-                      <Form.Group controlId='rating'>
+                      <Form.Group className='mt-3' controlId='rating'>
                         <Form.Label>Rating</Form.Label>
                         <Form.Control
                           as='select'
@@ -123,7 +125,7 @@ const ProductScreen = () => {
                           <option value='5'>5 - Excellent</option>
                         </Form.Control>
                       </Form.Group>
-                      <Form.Group controlId='comment'>
+                      <Form.Group className='mt-3' controlId='comment'>
                         <Form.Label>Comment</Form.Label>
                         <Form.Control
                           as='textarea'
@@ -132,7 +134,8 @@ const ProductScreen = () => {
                           onChange={(e) => setComment(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
-                      <Button
+                      <Button 
+                        className='mt-4'
                         disabled={loadingProductReview}
                         type='submit'
                         variant='primary'

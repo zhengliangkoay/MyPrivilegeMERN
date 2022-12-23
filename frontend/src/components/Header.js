@@ -1,10 +1,10 @@
 import React from 'react'
-import {Link,NavLink} from 'react-router-dom'
+import {Link, NavLink, Routes, Route} from 'react-router-dom'
  import { useDispatch, useSelector } from 'react-redux'
 //import { LinkContainer } from 'react-router-bootstrap'
 import Container from 'react-bootstrap/Container'
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap'
-// import SearchBox from './SearchBox'
+import SearchBox from './SearchBox'
 import { logout } from '../actions/userActions'
 
 const Header = () => {
@@ -33,6 +33,10 @@ const Header = () => {
           
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
+            {/* <Routes>
+              <Route render = {({history}) => <SearchBox history={history}/>}/>
+            </Routes> */}
+            <SearchBox />
           <Nav className="justify-content-end flex-grow-1">
           {userInfo ? (
                 <NavDropdown title={userInfo.name} id='username'>
@@ -62,9 +66,9 @@ const Header = () => {
                 <Nav.Link as={Link} to="admin/productlist">Products</Nav.Link>
                 </NavDropdown.Item> 
 
-                <NavDropdown.Item>
+                {/* <NavDropdown.Item>
                 <Nav.Link as={Link} to="admin/orderlist">Orders</Nav.Link>
-                </NavDropdown.Item> 
+                </NavDropdown.Item>  */}
 
                 {/* <NavDropdown.Item onClick={logoutHandler}>
                 <Nav.Link>Logout</Nav.Link>

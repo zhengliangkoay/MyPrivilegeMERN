@@ -15,8 +15,8 @@ const Product = ({product}) => {
 
       <Card.Body>
           
-        <Link to={`/product/${product._id}`}>
-          <Card.Title as='div'>
+      <Link to={`/product/${product._id}`} style={{textDecorationLine: 'none'}}>
+          <Card.Title as='h5' style={{color : 'black'}} className='mt-3'>
             <strong>{product.name}</strong>
           </Card.Title>
         </Link>
@@ -27,11 +27,11 @@ const Product = ({product}) => {
         </div> */}
           <Rating
             value={product.rating}
-            text={` ${product.numReviews} reviews`}
+            text = <i>{` ${product.numReviews} reviews`}</i>
           />
         </Card.Text>
 
-        <Card.Text as='h3'>${product.price}</Card.Text>
+        <Card.Text as='h3'>RM {product.price}</Card.Text>
       </Card.Body>
     </Card>
   )

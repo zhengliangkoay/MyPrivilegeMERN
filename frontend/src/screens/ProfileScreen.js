@@ -19,9 +19,11 @@ const ProfileScreen =  () => {
   const dispatch = useDispatch()
 
   const userDetails = useSelector((state) => state.userDetails)
+  console.log("userDetail" , userDetails)
   const { loading, error, user } = userDetails
 
   const userLogin = useSelector((state) => state.userLogin)
+  console.log(userLogin)
   const { userInfo } = userLogin
 
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
@@ -40,8 +42,8 @@ let navigate = useNavigate();
         dispatch(getUserDetails('profile'))
         //dispatch(listMyOrders())
       } else {
-        setName(user.name)
-        setEmail(user.email)
+        setName(userInfo.name)
+        setEmail(userInfo.email)
       }
     }
   }, [dispatch, userInfo, user, success])
@@ -58,8 +60,11 @@ let navigate = useNavigate();
   return (
     <Row>
     <Col md={12}>
-    <FormContainer>
-        <h1>User Profile</h1>
+    <FormContainer>     
+    {userInfo && userInfo.isAdmin ? (
+        <h1>Admin Profile</h1>) : (
+          <h1>User Profile</h1>
+        )}
         {message && <Message variant='danger'>{message}</Message>}
         {error && <Message variant='danger'>{error}</Message>}
         {success && <Message variant='success'>Profile Updated</Message>}
