@@ -9,9 +9,6 @@ const Product = ({product}) => {
         <a href ={`/product/${product._id}`}>
             <Card.Img src={product.image} variant='top'/>
         </a>
-      {/* <Link to={`/product/${product._id}`}>
-        <Card.Img src={product.image} variant='top' />
-      </Link> */}
 
       <Card.Body>
           
@@ -22,9 +19,6 @@ const Product = ({product}) => {
         </Link>
 
         <Card.Text as='div' className='mt-3'>
-        {/* <div className = 'my-3'>
-            {product.rating} from {product.numReviews} reviews
-        </div> */}
           <Rating
             value={product.rating}
             text=<i>{` ${product.numReviews} reviews`}</i>

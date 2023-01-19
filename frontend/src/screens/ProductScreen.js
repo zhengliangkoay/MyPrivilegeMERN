@@ -33,7 +33,7 @@ const ProductScreen = () => {
 
     useEffect(() => {
       if (successProductReview) {
-      alert('Review Submitted')
+      alert('Review Submitted Successfully')
       setRating(0)
       setComment('')
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET})
@@ -88,6 +88,7 @@ const ProductScreen = () => {
                   <ListGroup.Item>
                     Status: {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}
                   </ListGroup.Item>
+
                   {product.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
@@ -172,6 +173,8 @@ const ProductScreen = () => {
                           <option value='5'>5 - Excellent</option>
                         </Form.Control>
                       </Form.Group>
+
+
                       <Form.Group className='mt-3' controlId='comment'>
                         <Form.Label>Comment</Form.Label>
                         <Form.Control

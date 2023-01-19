@@ -29,7 +29,7 @@ import {
 //   USER_UPDATE_SUCCESS,
 //   USER_UPDATE_REQUEST,
 } from '../constants/userConstants'
-//import { ORDER_LIST_MY_RESET } from '../constants/orderConstants'
+import {useNavigate} from 'react-router-dom'
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -67,15 +67,13 @@ export const login = (email, password) => async (dispatch) => {
 }
 
 export const logout = () => (dispatch) => {
+
   localStorage.removeItem('userInfo')
-  // localStorage.removeItem('cartItems')
-  // localStorage.removeItem('shippingAddress')
-  // localStorage.removeItem('paymentMethod')
+  localStorage.removeItem('cartItems')
+  
   dispatch({ type: USER_LOGOUT })
-  // dispatch({ type: USER_DETAILS_RESET })
-  // dispatch({ type: ORDER_LIST_MY_RESET })
+  dispatch({ type: USER_DETAILS_RESET })
   dispatch({ type: USER_LIST_RESET })
-  //document.location.href = '/login'
 }
 
 export const register = (name, email, password) => async (dispatch) => {

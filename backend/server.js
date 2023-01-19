@@ -8,6 +8,7 @@ import { notFound,errorHandler } from './middleware/errorMiddleware.js'
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
+import promotionRoutes from './routes/promotionRoutes.js'
 
 dotenv.config()
 
@@ -26,6 +27,7 @@ app.get('/',(req,res) =>{
 })
 
 app.use('/api/products',productRoutes)
+app.use('/api/promotion',promotionRoutes)
 app.use('/api/users',userRoutes)
 app.use('/api/upload',uploadRoutes)
 

@@ -4,7 +4,6 @@ import { Table, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-//import Container from 'react-bootstrap/Container'
 import Paginate from '../components/Paginate'
 import {
   listProducts,

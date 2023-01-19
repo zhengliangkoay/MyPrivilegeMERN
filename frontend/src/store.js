@@ -20,6 +20,13 @@ import {
   userDeleteReducer,
   userUpdateReducer,
 } from './reducers/userReducers'
+import { promotionDetailsReducer, 
+  promotionListReducer,
+  promotionDeleteReducer,
+  promotionCreateReducer,
+  promotionUpdateReducer,
+
+} from './reducers/promotionReducers'
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -36,7 +43,12 @@ const reducer = combineReducers({
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,
-  cart: cartReducer
+  cart: cartReducer,
+  promotionList: promotionListReducer,
+  promotionDetails: promotionDetailsReducer,
+  promotionCreate: promotionCreateReducer,
+  promotionDelete: promotionDeleteReducer,
+  promotionUpdate: promotionUpdateReducer
 })
 
 const middleware = [thunk]
