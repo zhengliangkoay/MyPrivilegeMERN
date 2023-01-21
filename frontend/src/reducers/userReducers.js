@@ -25,6 +25,10 @@ import {
     USER_UPDATE_SUCCESS,
     USER_UPDATE_FAIL,
     USER_UPDATE_RESET,
+    USER_CREATE_FEEDBACK_REQUEST,
+    USER_CREATE_FEEDBACK_SUCCESS,
+    USER_CREATE_FEEDBACK_FAIL,
+    USER_CREATE_FEEDBACK_RESET,
   } from '../constants/userConstants'
   
   export const userLoginReducer = (state = {}, action) => {
@@ -127,6 +131,21 @@ import {
         return {
           user: {},
         }
+      default:
+        return state
+    }
+  }
+
+  export const userFeedbackCreateReducer = (state = {}, action) => {
+    switch (action.type) {
+      case USER_CREATE_FEEDBACK_REQUEST:
+        return { loading: true }
+      case USER_CREATE_FEEDBACK_SUCCESS:
+        return { loading: false, success: true }
+      case USER_CREATE_FEEDBACK_FAIL:
+        return { loading: false, error: action.payload }
+      case USER_CREATE_FEEDBACK_RESET:
+        return {}
       default:
         return state
     }

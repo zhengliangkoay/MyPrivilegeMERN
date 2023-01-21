@@ -64,6 +64,13 @@ const Header = () => {
                       <b>Profile</b>
                     </Nav.Link>
                   </NavDropdown.Item> 
+                  {userInfo && !userInfo.isAdmin && (
+                      <NavDropdown.Item>
+                      <Nav.Link as={Link} to="/feedback">
+                        <b>Write Feedback</b>
+                      </Nav.Link>
+                    </NavDropdown.Item> 
+                  )} 
                   <NavDropdown.Item onClick={logoutHandler}>
                     <Nav.Link><b>Logout</b></Nav.Link>
                   </NavDropdown.Item> 
@@ -165,7 +172,7 @@ const Header = () => {
 
                 <NavDropdown.Item>
                   <Nav.Link as={Link} to="admin/promotionlist">
-                    <b>Promotion</b>
+                    <b>Promotional News</b>
                   </Nav.Link>
                 </NavDropdown.Item> 
 

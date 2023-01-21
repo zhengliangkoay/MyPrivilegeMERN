@@ -9,6 +9,7 @@ import {Link, useNavigate} from 'react-router-dom'
 const UserListScreen = () => {
   const dispatch = useDispatch()
 
+  // with feedbacks
   const userList = useSelector((state) => state.userList)
   const { loading, error, users } = userList
 
@@ -55,6 +56,7 @@ let navigate = useNavigate();
               <th>NAME</th>
               <th>EMAIL</th>
               <th>ADMIN</th>
+              <th>NUMBER OF FEEDBACK</th>
               <th></th>
             </tr>
           </thead>
@@ -73,6 +75,7 @@ let navigate = useNavigate();
                     <i className='fas fa-times' style={{ color: 'red' }}></i>
                   )}
                 </td>
+                <td>{user.numFeedbacks}</td>
                 <td>
                   <Link to={`/admin/user/${user._id}/edit`} > 
                     <Button variant='light' className='btn-sm' style ={{margin : '0px 10px'}}>
@@ -87,6 +90,11 @@ let navigate = useNavigate();
                   >
                     <i className='fas fa-trash'></i>
                   </Button>
+                  <Link to={{pathname: `/${user._id}/feedbackForUser`, state: user}} > 
+                    <Button variant='light' className='btn-sm' style ={{margin : '0px 10px'}}>
+                    <i className='fas fa-file'/>
+                    </Button>
+                  </Link> 
                 </td>
               </tr>
             ))}

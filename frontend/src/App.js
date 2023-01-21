@@ -16,6 +16,8 @@ import PromotionDetailScreen from './screens/PromotionDetailScreen';
 import PromotionListScreen from './screens/PromotionListScreen';
 import PromotionEditScreen from './screens/PromotionEditScreen';
 import CartScreen from './screens/CartScreen';
+import UserWriteFeedbackScreen from './screens/UserWriteFeedbackScreen';
+import UserListFeedback from './screens/UserListFeedback';
 import { Container } from 'react-bootstrap'
 
 
@@ -42,6 +44,8 @@ const App = () => {
           {/* <Route path = "/admin/productlist/:pageNumber" element={<ProductListScreen/>} exact/> */}
           <Route path = "/admin/product/:id/edit" element={<ProductEditScreen/>} />
           <Route path = "/search/:keyword" element={<HomeScreen/>} exact/>
+          <Route path = "/feedback" element={<UserWriteFeedbackScreen/>}></Route>
+          <Route path = "/:id/feedbackForUser" element={<UserListFeedback/>}></Route>
           {/* <Route path = "/search/:keyword/page/:pageNumber" element={<HomeScreen/>} exact/> */}
           {/* <Route path = "/page/:pageNumber" element={<HomeScreen/>} exact/> */}
           <Route path = "/" element={<HomeScreen/>} />

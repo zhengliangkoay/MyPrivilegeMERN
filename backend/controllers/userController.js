@@ -197,6 +197,35 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Create new feedback
+// @route   POST /api/users/:id/feedback
+// @access  Private
+const createUserFeedback = asyncHandler(async (req, res) => {
+  const { category, comment } = req.body
+
+  const user = await User.findById(req.params.id)
+
+  if (user) {
+
+    const feedback = {
+      name: req.user.name,
+      category,
+      comment,
+      user: req.user._id,
+    }
+
+    user.feedbacks.push(feedback)
+
+    user.numFeedbacks = user.feedbacks.length
+    
+    await user.save()
+    res.status(201).json({ message: 'Feedback added' })
+  } else {
+    res.status(404)
+    throw new Error('User not found')
+  }
+})
+
 export{
   authUser, 
   getUserProfile, 
@@ -206,4 +235,5 @@ export{
   deleteUser, 
   getUserById,
   updateUser,
+  createUserFeedback,
 }

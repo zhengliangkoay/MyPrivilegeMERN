@@ -1,6 +1,22 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 
+const feedbackSchema = mongoose.Schema(
+  {
+    name: { type: String, required: true },
+    category: { type: String, required: true },
+    comment: { type: String, required: true },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
+  },
+  {
+    timestamps: true,
+  }
+)
+
 const userSchema = mongoose.Schema(
   {
     name: {
@@ -15,6 +31,12 @@ const userSchema = mongoose.Schema(
     password: {
       type: String,
       required: true,
+    },
+    feedbacks: [feedbackSchema],
+    numFeedbacks: {
+      type: Number,
+      required: true,
+      default: 0,
     },
     isAdmin: {
       type: Boolean,
