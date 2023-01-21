@@ -21,6 +21,15 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    stampCount: {
+      type: Number
+    },
+    stampCreatedDate: {
+        type: String
+    },
+    stampCreatedTime: {
+        type: String
+    }
   },
   {
     timestamps: true,

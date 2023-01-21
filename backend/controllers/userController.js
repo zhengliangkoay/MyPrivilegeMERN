@@ -1,6 +1,8 @@
 import asyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
 import generateToken from '../utils/generateToken.js'
+import { format } from "morgan"
+
 
 // @desc    Auth user & get token
 // @route   POST /api/users/login
@@ -18,6 +20,9 @@ const authUser = asyncHandler(async (req, res) => {
             email: user.email,
             isAdmin: user.isAdmin,
             token: generateToken(user._id),
+            stampCount: user.stampCount,
+            stampCreatedDate: user.stampCreatedDate,
+            stampCreatedTime: user.stampCreatedTime
         })
 
     }
@@ -39,6 +44,9 @@ const getUserProfile = asyncHandler(async (req, res) => {
         name: user.name,
         email: user.email,
         isAdmin: user.isAdmin,
+        stampCount: user.stampCount,
+        stampCreatedDate: user.stampCreatedDate,
+        stampCreatedTime: user.stampCreatedTime
       })
     } else {
       res.status(404)
@@ -72,6 +80,9 @@ const registerUser = asyncHandler(async (req, res) => {
         email: user.email,
         isAdmin: user.isAdmin,
         token: generateToken(user._id),
+        stampCount: 0,
+        stampCreatedDate: format(new Date(), 'dd/MM/yyyy'),
+        stampCreatedTime: format(new Date(), 'HH:mm:ss'),
       })
     } else {
       res.status(400)
@@ -100,6 +111,9 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
       token: generateToken(updatedUser._id),
+      stampCount: updatedUser.stampCount,
+      stampCreatedDate: updatedUser.stampCreatedDate,
+      stampCreatedTime: updateUser.stampCreatedTime
     })
   } else {
     res.status(404)
