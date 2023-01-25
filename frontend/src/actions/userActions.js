@@ -25,6 +25,9 @@ import {
   USER_UPDATE_FAIL,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_REQUEST,
+  USER_CREATE_STAMP_REQUEST,
+  USER_CREATE_STAMP_SUCCESS,
+  USER_CREATE_STAMP_FAIL,
 //   USER_UPDATE_FAIL,
 //   USER_UPDATE_SUCCESS,
 //   USER_UPDATE_REQUEST,
@@ -313,6 +316,43 @@ export const updateUser = (user) => async (dispatch, getState) => {
     }
     dispatch({
       type: USER_UPDATE_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const createStamp = (userId, adminId, noOfStampEarned) => async (dispatch,getState) => {
+  try {
+    dispatch({
+      type: USER_CREATE_STAMP_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    await axios.post(`/api/users/${userId}/${adminId}/stamp/add`,noOfStampEarned, config)
+
+    dispatch({
+      type: USER_CREATE_STAMP_SUCCESS,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    // if (message === 'Not authorized, token failed') {
+    //   dispatch(logout())
+    // }
+    dispatch({
+      type: USER_CREATE_STAMP_FAIL,
       payload: message,
     })
   }

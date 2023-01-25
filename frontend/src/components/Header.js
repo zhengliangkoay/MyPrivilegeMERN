@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route, Link, NavLink, useNavigate} from 'react-router-dom'
+import {Link, NavLink, useNavigate} from 'react-router-dom'
  import { useDispatch, useSelector } from 'react-redux'
 import Container from 'react-bootstrap/Container'
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap'
@@ -62,6 +62,11 @@ const Header = () => {
                   <NavDropdown.Item>
                     <Nav.Link as={Link} to="/profile">
                       <b>Profile</b>
+                    </Nav.Link>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <Nav.Link as={Link} to="/reward">
+                      <b>Reward</b>
                     </Nav.Link>
                   </NavDropdown.Item> 
                   <NavDropdown.Item onClick={logoutHandler}>
@@ -166,6 +171,12 @@ const Header = () => {
                 <NavDropdown.Item>
                   <Nav.Link as={Link} to="admin/promotionlist">
                     <b>Promotion</b>
+                  </Nav.Link>
+                </NavDropdown.Item> 
+
+                <NavDropdown.Item>
+                  <Nav.Link as={Link} to="admin/reward">
+                    <b>Reward</b>
                   </Nav.Link>
                 </NavDropdown.Item> 
 

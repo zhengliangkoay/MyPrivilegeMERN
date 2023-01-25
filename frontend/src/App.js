@@ -15,6 +15,7 @@ import PromotionScreen from './screens/PromotionScreen';
 import PromotionDetailScreen from './screens/PromotionDetailScreen';
 import PromotionListScreen from './screens/PromotionListScreen';
 import PromotionEditScreen from './screens/PromotionEditScreen';
+import RewardScreen from './screens/RewardScreen';
 import CartScreen from './screens/CartScreen';
 import { Container } from 'react-bootstrap'
 
@@ -29,6 +30,7 @@ const App = () => {
           <Route path = "/login" element={<LoginScreen/>} />
           <Route path = "/register" element={<RegisterScreen/>} />
           <Route path = "/profile" element={<ProfileScreen/>} />
+          <Route path = "/reward" element={<RewardScreen/>} />
           <Route path = "/product/:id" element={<ProductScreen/>} />
           <Route path = "/cart/:id" element={<CartScreen/>} />
           <Route path= "/cart" element={<CartScreen/>} />

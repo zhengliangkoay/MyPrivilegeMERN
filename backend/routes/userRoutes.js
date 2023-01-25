@@ -9,6 +9,9 @@ import {
   deleteUser,
   getUserById,
   updateUser,
+  getStampById,
+  updateStamp,
+  redeemStamp
 } from '../controllers/userController.js'
 import { protect, admin } from '../middleware/authMiddleware.js'
 
@@ -31,5 +34,19 @@ router
   .delete(protect, admin, deleteUser)
   .get(protect, admin, getUserById)
   .put(protect, admin, updateUser)
+  
+
+router
+  .route('/:id/stamp')
+  .get(protect, getStampById)
+
+router
+  .route('/:userId/:adminId/stamp/add')
+  .put(protect, admin, updateStamp)
+
+router
+  .route('/:userId/:adminId/stamp/redeem')
+  .put(protect, admin, redeemStamp)
+  
 
 export default router

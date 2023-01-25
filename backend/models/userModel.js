@@ -1,6 +1,29 @@
 import mongoose from 'mongoose'
 import bcrypt from 'bcryptjs'
 
+const stampSchema = mongoose.Schema(
+  {
+    stampsAdded: {
+      type: Number,
+    },
+    stampsRedeem: {
+      type: Number,
+    },
+    createdBy: {
+      type: String,
+      required: true,
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
+  },
+  {
+    timestamps: true,
+  }
+)
+
 const userSchema = mongoose.Schema(
   {
     name: {
@@ -21,15 +44,12 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
-    stampCount: {
-      type: Number
+    currentStamps: {
+      type: Number,
+      required: true,
+      default: 0,
     },
-    stampCreatedDate: {
-        type: String
-    },
-    stampCreatedTime: {
-        type: String
-    }
+    stampsCollectHistory: [stampSchema,],
   },
   {
     timestamps: true,

@@ -19,6 +19,7 @@ import {
   userListReducer, 
   userDeleteReducer,
   userUpdateReducer,
+  userCreateStampReducer,
 } from './reducers/userReducers'
 import { promotionDetailsReducer, 
   promotionListReducer,
@@ -48,7 +49,8 @@ const reducer = combineReducers({
   promotionDetails: promotionDetailsReducer,
   promotionCreate: promotionCreateReducer,
   promotionDelete: promotionDeleteReducer,
-  promotionUpdate: promotionUpdateReducer
+  promotionUpdate: promotionUpdateReducer,
+  createStamp: userCreateStampReducer
 })
 
 const middleware = [thunk]
