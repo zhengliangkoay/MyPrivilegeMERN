@@ -6,6 +6,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { PROMOTION_CREATE_RESET } from '../constants/promotionConstant'
 import { listPromotion, deletePromotion, createPromotion} from '../actions/promotionActions'
+import PromotionsPDF from '../components/PromotionsPDF'
 
 const PromotionListScreen = () => {
   
@@ -63,7 +64,8 @@ const PromotionListScreen = () => {
     successDelete,
     successCreate,
     createdPromotion,
-    pageNumber
+    pageNumber,
+    navigate
   ])
 
   const deleteHandler = (id) => {
@@ -141,7 +143,7 @@ const PromotionListScreen = () => {
               ))}
             </tbody>
           </Table>
-          
+          <PromotionsPDF />
         </>
       )}
     </>

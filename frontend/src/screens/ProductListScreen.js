@@ -11,8 +11,9 @@ import {
   createProduct,
 } from '../actions/productActions'
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
+import ProductsPDF from '../components/ProductsPDF'
 
-const ProductListScreen = () => {
+const ProductListScreen = (props) => {
   
   let params = useParams();
   const pageNumber = params.pageNumber || 1
@@ -40,6 +41,47 @@ const ProductListScreen = () => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
+  // const useSortableData = (item, config = null) => {
+  //   const [sortConfig, setSortConfig] = React.useState(null);
+
+  //   const sortedItems  = React.useMemo(() => {
+  //     let sortedProducts = [...productList.products];
+  //     if(sortConfig != null){
+  //       sortedProducts.sort((a, b) => {
+  //         if (a[sortConfig.key] < b[sortConfig.key]) {
+  //           return sortConfig.direction === 'ascending' ? -1 : 1;
+  //         }
+  //         if (a[sortConfig.key] > b[sortConfig.key]) {
+  //           return sortConfig.direction === 'ascending' ? 1 : -1;
+  //         }
+  //         return 0;
+  //       });
+  //     }
+  //     return sortedProducts;
+  //   }, [products, sortConfig]);
+  
+  
+  //   const requestSort = key => {
+  //     let direction = 'ascending';
+  //     if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+  //       direction = 'descending';
+  //     }
+  //     setSortConfig({ key, direction });
+  //   }
+  //   return {item: sortedItems, requestSort };
+  // }
+
+  // const {item, requestSort, sortConfig } = useSortableData(products);
+
+  // const getClassNamesFor = (name) => {
+  //   if (!sortConfig) {
+  //     return;
+  //   }
+  //   return sortConfig.key === name ? sortConfig.direction : undefined;
+  // };
+
+  // console.log(sortConfig)
+
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -60,7 +102,8 @@ const ProductListScreen = () => {
     successDelete,
     successCreate,
     createdProduct,
-    pageNumber
+    pageNumber,
+    navigate,
   ])
 
   const deleteHandler = (id) => {
@@ -76,7 +119,9 @@ const ProductListScreen = () => {
 
   return (
     <>
-      
+    <Link to ='/' className='btn btn-light'>
+      Go Back
+    </Link>
       <Row className='align-items-center'>
         <Col>
           <h1>Products</h1>
@@ -105,7 +150,16 @@ const ProductListScreen = () => {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>NAME</th>
+                <th>
+                {/* <button
+                  type="button"
+                  onClick={() => requestSort('name')}
+                  className={getClassNamesFor('name')}
+                >
+                  NAME
+                </button> */}
+                NAME
+                </th>
                 <th>PRICE</th>
                 <th>CATEGORY</th>
                 <th>BRAND</th>
@@ -142,6 +196,7 @@ const ProductListScreen = () => {
             </tbody>
           </Table>
           <Paginate pages={pages} page={page} isAdmin={true} />
+          <ProductsPDF />
         </>
       )}
     </>

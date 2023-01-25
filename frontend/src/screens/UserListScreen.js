@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
-import { Table, Button, Nav } from 'react-bootstrap'
+import { Table, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { listUsers, deleteUser } from '../actions/userActions'
 import {Link, useNavigate} from 'react-router-dom'
+import UsersPDF from '../components/UsersPDF'
 
 const UserListScreen = () => {
   const dispatch = useDispatch()
@@ -27,12 +28,7 @@ let navigate = useNavigate();
     } else {
       return navigate('/login')
     }
-  }, [dispatch, userInfo, successDelete])
-
-    // useEffect(() => {
-    //     dispatch(listUsers())
-    // }, [dispatch])
-
+  }, [dispatch, userInfo, successDelete, navigate])
 
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
@@ -43,6 +39,9 @@ let navigate = useNavigate();
 
   return (
     <>
+    <Link to ='/' className='btn btn-light'>
+      Go Back
+    </Link>
       <h1>Users</h1>
       {loading ? (
         <Loader />
@@ -57,6 +56,7 @@ let navigate = useNavigate();
               <th>EMAIL</th>
               <th>ADMIN</th>
               <th>NUMBER OF FEEDBACK</th>
+              <th>FEEDBACKS</th>
               <th></th>
             </tr>
           </thead>
@@ -77,6 +77,30 @@ let navigate = useNavigate();
                 </td>
                 <td>{user.numFeedbacks}</td>
                 <td>
+                  {user.isAdmin || user.numFeedbacks === 0 ? (
+                    <Button 
+                    variant='light' 
+                    className='btn-sm' 
+                    style ={{margin : '0px 10px'}}
+                    disabled >  
+                  <i className='far fa-file'
+                  />
+                  </Button>
+                  ) : (
+                    <Link to={{pathname: `/${user._id}/feedbackForUser`, state: user }}> 
+                    <Button 
+                      variant='light' 
+                      className='btn-sm' 
+                      style ={{margin : '0px 10px'}} >
+                        
+                    <i className='fas fa-file'
+                    
+                    />
+                    </Button>
+                  </Link> 
+                  )}
+                </td>
+                <td>
                   <Link to={`/admin/user/${user._id}/edit`} > 
                     <Button variant='light' className='btn-sm' style ={{margin : '0px 10px'}}>
                     <i className='fas fa-edit'/>
@@ -89,18 +113,14 @@ let navigate = useNavigate();
                     onClick={() => deleteHandler(user._id)}
                   >
                     <i className='fas fa-trash'></i>
-                  </Button>
-                  <Link to={{pathname: `/${user._id}/feedbackForUser`, state: user}} > 
-                    <Button variant='light' className='btn-sm' style ={{margin : '0px 10px'}}>
-                    <i className='fas fa-file'/>
-                    </Button>
-                  </Link> 
+                  </Button>                   
                 </td>
               </tr>
             ))}
           </tbody>
         </Table>
       )}
+      <UsersPDF />
     </>
   )
 }

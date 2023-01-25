@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react'
-import { Table, Button, Nav } from 'react-bootstrap'
+import { Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { listUsers, deleteUser, getUserDetails } from '../actions/userActions'
+import { getUserDetails } from '../actions/userActions'
 import {Link, useParams, useNavigate} from 'react-router-dom'
+import FeedbacksPDF from '../components/FeedbacksPDF'
 
 const UserListFeedback = () => {
   const dispatch = useDispatch()
-
-  // with feedbacks
-  const userList = useSelector((state) => state.userList)
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -23,6 +21,11 @@ const UserListFeedback = () => {
 
   const feedbacks = user.feedbacks
 
+  for (let feedback of feedbacks) {
+    feedback.date= new Date(feedback.updatedAt).toLocaleDateString('en-US');
+    feedback.time= new Date(feedback.updatedAt).toLocaleTimeString('en-US');
+   }
+
 let navigate = useNavigate();
 
   useEffect(() => {
@@ -31,7 +34,7 @@ let navigate = useNavigate();
     } else {
       return navigate('/login')
     }
-  }, [dispatch, userInfo, userId])
+  }, [dispatch, userInfo, userId, navigate])
 
   return (
     <>
@@ -52,6 +55,7 @@ let navigate = useNavigate();
               <th>CATEGORY</th>
               <th>COMMENT</th>
               <th>CREATED DATE</th>
+              <th>CREATED TIME</th>
             </tr>
           </thead>
           <tbody>
@@ -60,12 +64,14 @@ let navigate = useNavigate();
                 <td>{feedback._id}</td>
                 <td>{feedback.category}</td>
                 <td>{feedback.comment}</td>
-                <td>{feedback.createdAt}</td> 
+                <td>{feedback.date}</td> 
+                <td>{feedback.time}</td> 
               </tr>
             ))}
           </tbody>
         </Table>
       )}
+      <FeedbacksPDF />
     </>
   )
 }
