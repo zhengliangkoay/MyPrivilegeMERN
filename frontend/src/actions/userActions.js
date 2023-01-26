@@ -31,8 +31,13 @@ import {
 //   USER_UPDATE_FAIL,
 //   USER_UPDATE_SUCCESS,
 //   USER_UPDATE_REQUEST,
+  USER_CREATE_STAMP_REQUEST,
+  USER_CREATE_STAMP_SUCCESS,
+  USER_CREATE_STAMP_FAIL,
+  USER_REDEEM_STAMP_REQUEST,
+  USER_REDEEM_STAMP_SUCCESS,
+  USER_REDEEM_STAMP_FAIL,
 } from '../constants/userConstants'
-import {useNavigate} from 'react-router-dom'
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -137,7 +142,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(`/api/users/${id}`, config)
-
+    
     dispatch({
       type: USER_DETAILS_SUCCESS,
       payload: data,
@@ -358,3 +363,76 @@ export const createUserFeedback = (userId, feedback) => async (
   }
 }
 
+export const createStamp = (userStamp) => async (dispatch,getState) => {
+  try {
+    dispatch({
+      type: USER_CREATE_STAMP_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.put(`/api/users/${userStamp._id}/stamp/add`,userStamp, config)
+    console.log(data)
+
+    dispatch({
+      type: USER_CREATE_STAMP_SUCCESS,
+      payload: data,
+    })
+
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    dispatch({
+      type: USER_CREATE_STAMP_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const redeemStamp = (userStamp) => async (dispatch,getState) => {
+  try {
+    dispatch({
+      type: USER_REDEEM_STAMP_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.put(`/api/users/${userStamp._id}/stamp/redeem`,userStamp, config)
+    console.log(data)
+
+    dispatch({ type: USER_REDEEM_STAMP_SUCCESS })
+    
+    dispatch({ type: USER_DETAILS_SUCCESS, payload: data })
+
+    // dispatch({ type: USER_DETAILS_RESET })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    dispatch({
+      type: USER_REDEEM_STAMP_FAIL,
+      payload: message,
+    })
+  }
+}

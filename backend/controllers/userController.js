@@ -18,6 +18,8 @@ const authUser = asyncHandler(async (req, res) => {
             email: user.email,
             isAdmin: user.isAdmin,
             token: generateToken(user._id),
+            currentStamps: user.currentStamps,
+            stampsCollectHistory: user.stampsCollectHistory,
         })
 
     }
@@ -39,6 +41,8 @@ const getUserProfile = asyncHandler(async (req, res) => {
         name: user.name,
         email: user.email,
         isAdmin: user.isAdmin,
+        currentStamps: user.currentStamps,
+        stampsCollectHistory: user.stampsCollectHistory,
       })
     } else {
       res.status(404)
@@ -72,6 +76,8 @@ const registerUser = asyncHandler(async (req, res) => {
         email: user.email,
         isAdmin: user.isAdmin,
         token: generateToken(user._id),
+        currentStamps: user.currentStamps,
+        stampsCollectHistory: user.stampsCollectHistory,
       })
     } else {
       res.status(400)
@@ -145,33 +151,6 @@ const getUserById = asyncHandler(async (req, res) => {
   // res.json(user)
 })
 
-// // @desc    Update user 
-// // @route   PUT /api/users/:id
-// // @access  Private
-// const updateUser = asyncHandler(async (req, res) => {
-//   const user = await User.findById(req.params.id)
-
-//   if (user) {
-//     user.name = req.body.name || user.name
-//     user.email = req.body.email || user.email
-//     user.isAdmin = req.body.isAdmin
-
-//     const updatedUser = await user.save()
-
-//     res.json({
-//       _id: updatedUser._id,
-//       name: updatedUser.name,
-//       email: updatedUser.email,
-//       isAdmin: updatedUser.isAdmin,
-//       token: generateToken(updatedUser._id),
-//     })
-//   } else {
-//     res.status(404)
-//     throw new Error('User not found')
-//   }
-// })
-
-
 // @desc    Update user
 // @route   PUT /api/users/:id
 // @access  Private/Admin
@@ -226,6 +205,128 @@ const createUserFeedback = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Fetch one user stamp
+// @route   GET /api/users/:id/stamp
+// @access  Public
+const getStampById = asyncHandler(async (req, res) => {
+    
+  const user = await User.findById(req.params.id)
+
+  if(user){
+      res.json({user})
+  }
+  else {
+      res.status(404)
+      throw new Error('Fail to get stamp')
+  }  
+})
+
+// // @desc    Add & Update new stamp to user
+// // @route   PUT /api/users/:userId/stamp/add
+// // @access  Private/Admin
+const updateStamp = asyncHandler(async (req, res) => {
+
+  const {noOfStampEarned} = req.body
+
+  const user = await User.findById(req.params.userId)
+
+  if( !user ){
+    res.status(404)
+    throw new Error('Fail to find user')
+  } else {
+        const stampCount = user.currentStamps;
+        console.log("Current stamps: " + stampCount)
+        
+        const newTotal = stampCount + parseInt(noOfStampEarned);
+        console.log("New total(<10): " + newTotal)
+        
+        user.currentStamps = newTotal
+
+        const stamp = {
+          stampsAdded : noOfStampEarned,
+          createdUsername: req.user.name,
+          user: req.user._id,
+        }
+
+        user.stampsCollectHistory.push(stamp)
+        const updatedStamp = await user.save()
+        res.json(updatedStamp)
+    }
+})
+
+// // @desc    Redeem stamp
+// // @route   PUT /api/users/:userId/stamp/redeem
+// // @access  Private
+const redeemStamp = asyncHandler(async (req, res) => {
+
+  const {noOfStampRedeem} = req.body
+
+  const user = await User.findById(req.params.userId)
+
+  if( !user ){
+    res.status(404)
+    throw new Error('Fail to find user')
+  } else {
+    const stampCount = user.currentStamps;
+    if ( stampCount >= parseInt(noOfStampRedeem) ) {
+      if( parseInt(noOfStampRedeem) == 1 ){
+        const newTotal = stampCount - parseInt(noOfStampRedeem);
+        user.currentStamps = newTotal
+        console.log("Free 1 drink")
+
+        const stampRedeem = {
+          stampsRedeem : parseInt(noOfStampRedeem),
+          createdUsername: req.user.name,
+          user: req.user._id,
+        }
+        user.stampsCollectHistory.push(stampRedeem)
+      }
+      else if ( parseInt(noOfStampRedeem) == 3 ){
+        const newTotal = stampCount - parseInt(noOfStampRedeem);
+        user.currentStamps = newTotal
+        console.log("Free 1 chicken burger")
+
+        const stampRedeem = {
+          stampsRedeem : parseInt(noOfStampRedeem),
+          createdUsername: req.user.name,
+          user: req.user._id,
+        }
+        user.stampsCollectHistory.push(stampRedeem)
+      }
+      else if ( parseInt(noOfStampRedeem) == 5 ){
+        const newTotal = stampCount - parseInt(noOfStampRedeem);
+        user.currentStamps = newTotal
+        console.log("Free 1 pasta")
+
+        const stampRedeem = {
+          stampsRedeem : parseInt(noOfStampRedeem),
+          createdUsername: req.user.name,
+          user: req.user._id,
+        }
+        user.stampsCollectHistory.push(stampRedeem)
+      }
+      else if ( parseInt(noOfStampRedeem) == 10 ){
+        const newTotal = stampCount - parseInt(noOfStampRedeem);
+        user.currentStamps = newTotal
+        console.log("Free 1 pizza")
+
+        const stampRedeem = {
+          stampsRedeem : parseInt(noOfStampRedeem),
+          createdUsername: req.user.name,
+          user: req.user._id,
+        }
+        user.stampsCollectHistory.push(stampRedeem)
+      }
+      
+      const updatedStamp = await user.save()
+      res.json(updatedStamp)
+    } else {
+      res.status(404)
+      throw new Error('Stamp is not enough for redemption. Spend to earn more stamps.')
+    }
+  }
+})
+
 export{
   authUser, 
   getUserProfile, 
@@ -236,4 +337,7 @@ export{
   getUserById,
   updateUser,
   createUserFeedback,
+  getStampById,
+  updateStamp,
+  redeemStamp,
 }

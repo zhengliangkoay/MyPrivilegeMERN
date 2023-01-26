@@ -9,6 +9,7 @@ import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 import promotionRoutes from './routes/promotionRoutes.js'
+import voucherRoutes from './routes/voucherRoutes.js'
 
 dotenv.config()
 
@@ -30,6 +31,7 @@ app.use('/api/products',productRoutes)
 app.use('/api/promotion',promotionRoutes)
 app.use('/api/users',userRoutes)
 app.use('/api/upload',uploadRoutes)
+app.use('/api/voucher',voucherRoutes)
 
 const __dirname = path.resolve()
 app.use('/upload', express.static(path.join(__dirname, '/upload')))

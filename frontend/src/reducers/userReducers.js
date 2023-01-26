@@ -29,6 +29,14 @@ import {
     USER_CREATE_FEEDBACK_SUCCESS,
     USER_CREATE_FEEDBACK_FAIL,
     USER_CREATE_FEEDBACK_RESET,
+    USER_CREATE_STAMP_REQUEST,
+    USER_CREATE_STAMP_SUCCESS,
+    USER_CREATE_STAMP_FAIL,
+    USER_CREATE_STAMP_RESET,
+    USER_REDEEM_STAMP_REQUEST,
+    USER_REDEEM_STAMP_SUCCESS,
+    USER_REDEEM_STAMP_FAIL,
+    USER_REDEEM_STAMP_RESET,
   } from '../constants/userConstants'
   
   export const userLoginReducer = (state = {}, action) => {
@@ -145,6 +153,36 @@ import {
       case USER_CREATE_FEEDBACK_FAIL:
         return { loading: false, error: action.payload }
       case USER_CREATE_FEEDBACK_RESET:
+        return {}
+      default:
+        return state
+    }
+  }
+
+  export const userCreateStampReducer = (state = {}, action) => {
+    switch (action.type) {
+      case USER_CREATE_STAMP_REQUEST:
+        return { loading: true }
+      case USER_CREATE_STAMP_SUCCESS:
+        return { loading: false, success: true }
+      case USER_CREATE_STAMP_FAIL:
+        return { loading: false, error: action.payload }
+      case USER_CREATE_STAMP_RESET:
+        return {}
+      default:
+        return state
+    }
+  }
+
+  export const userRedeemStampReducer = (state = {user: {}}, action) => {
+    switch (action.type) {
+      case USER_REDEEM_STAMP_REQUEST:
+        return { loading: true }
+      case USER_REDEEM_STAMP_SUCCESS:
+        return { loading: false, success: true }
+      case USER_REDEEM_STAMP_FAIL:
+        return { loading: false, error: action.payload }
+      case USER_REDEEM_STAMP_RESET:
         return {}
       default:
         return state
