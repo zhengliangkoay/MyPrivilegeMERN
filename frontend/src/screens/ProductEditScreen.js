@@ -114,6 +114,7 @@ const ProductEditScreen = () => {
           <Form onSubmit={submitHandler}>
             <Form.Group className='mt-3' controlId='name'>
               <Form.Label>Name</Form.Label>
+              <Form.Label style = {{color: 'red'}}>*</Form.Label>
               <Form.Control
                 type='name'
                 placeholder='Enter name'
@@ -124,6 +125,7 @@ const ProductEditScreen = () => {
 
             <Form.Group className='mt-3' controlId='price'>
               <Form.Label>Price</Form.Label>
+              <Form.Label style = {{color: 'red'}}>*</Form.Label>
               <Form.Control
                 type='number'
                 placeholder='Enter price'
@@ -134,6 +136,7 @@ const ProductEditScreen = () => {
 
             <Form.Group className='mt-3' controlId='image'>
               <Form.Label>Image</Form.Label>
+              <Form.Label style = {{color: 'red'}}>*</Form.Label>
               <Form.Control
                 type='text'
                 placeholder='Enter image url'
@@ -153,6 +156,7 @@ const ProductEditScreen = () => {
 
             <Form.Group className='mt-3' controlId='brand'>
               <Form.Label>Brand</Form.Label>
+              <Form.Label style = {{color: 'red'}}>*</Form.Label>
               <Form.Control
                 type='text'
                 placeholder='Enter brand'
@@ -163,6 +167,7 @@ const ProductEditScreen = () => {
 
             <Form.Group className='mt-3' controlId='countInStock'>
               <Form.Label>Count In Stock</Form.Label>
+              <Form.Label style = {{color: 'red'}}>*</Form.Label>
               <Form.Control
                 type='number'
                 placeholder='Enter countInStock'
@@ -173,6 +178,7 @@ const ProductEditScreen = () => {
 
             <Form.Group className='mt-3' controlId='category'>
               <Form.Label>Category</Form.Label>
+              <Form.Label style = {{color: 'red'}}>*</Form.Label>
               <Form.Control
                 type='text'
                 placeholder='Enter category'
@@ -183,6 +189,7 @@ const ProductEditScreen = () => {
 
             <Form.Group className='mt-3' controlId='description'>
               <Form.Label>Description</Form.Label>
+              <Form.Label style = {{color: 'red'}}>*</Form.Label>
               <Form.Control
                 type='text'
                 placeholder='Enter description'

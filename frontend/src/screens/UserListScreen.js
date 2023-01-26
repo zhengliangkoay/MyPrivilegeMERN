@@ -56,7 +56,7 @@ let navigate = useNavigate();
               <th>EMAIL</th>
               <th>ADMIN</th>
               <th>NUMBER OF FEEDBACK</th>
-              <th>FEEDBACKS</th>
+              <th>VIEW FEEDBACKS</th>
               <th></th>
             </tr>
           </thead>

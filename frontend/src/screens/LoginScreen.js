@@ -15,14 +15,6 @@ const LoginScreen = () => {
 
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
-  
-  // const location = useLocation();
-  // const redirect = location.pathname + location.search
-  //const [searchParams, setSearchParams] = useSearchParams();
-
-  //const someQueryParam = searchParams.get("someQueryParam"); // 123
-  
-  //const redirect = location.search ? location.search.split('=')[1] : '/'
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -44,6 +36,7 @@ const LoginScreen = () => {
       <Form onSubmit={submitHandler}>
         <Form.Group className='mt-3' controlId='email'>
           <Form.Label >Email Address</Form.Label>
+          <Form.Label style = {{color: 'red'}}>*</Form.Label>
           <Form.Control
             type='email'
             placeholder='Enter email'
@@ -54,6 +47,7 @@ const LoginScreen = () => {
 
         <Form.Group className='mt-3' controlId='password'>
           <Form.Label >Password</Form.Label>
+          <Form.Label style = {{color: 'red'}}>*</Form.Label>
           <Form.Control
             type='password'
             placeholder='Enter password'

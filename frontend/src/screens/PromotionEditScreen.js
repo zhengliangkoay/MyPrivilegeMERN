@@ -102,6 +102,7 @@ const PromotionEditScreen = () => {
           <Form onSubmit={submitHandler}>
             <Form.Group className='mt-3' controlId='title'>
               <Form.Label>Title</Form.Label>
+              <Form.Label style = {{color: 'red'}}>*</Form.Label>
               <Form.Control
                 type='title'
                 placeholder='Enter title'
@@ -112,6 +113,7 @@ const PromotionEditScreen = () => {
 
             <Form.Group className='mt-3' controlId='image'>
               <Form.Label>Image</Form.Label>
+              <Form.Label style = {{color: 'red'}}>*</Form.Label>
               <Form.Control
                 type='text'
                 placeholder='Enter image url'
@@ -131,6 +133,7 @@ const PromotionEditScreen = () => {
 
             <Form.Group className='mt-3' controlId='description'>
               <Form.Label>Description</Form.Label>
+              <Form.Label style = {{color: 'red'}}>*</Form.Label>
               <Form.Control
                 type='text'
                 placeholder='Enter description'

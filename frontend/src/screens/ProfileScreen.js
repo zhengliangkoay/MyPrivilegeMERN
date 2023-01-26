@@ -52,6 +52,7 @@ const ProfileScreen =  () => {
       setMessage('Passwords do not match')
     } else {
       dispatch(updateUserProfile({ id: user._id, name, email, password }))
+      setMessage(null)
     }
   }
 
@@ -60,8 +61,15 @@ const ProfileScreen =  () => {
     <Col md={12}>
     <FormContainer>
     {userInfo && userInfo.isAdmin ? (
-        <h1>Admin Profile</h1>) : (
-          <h1>User Profile</h1>
+        <>
+          <h1>Admin Profile</h1>
+          <h5 style={{fontWeight: 'normal', color: 'lightseagreen'}}>You can update your profile below</h5>
+        </>
+        ) : (
+          <>
+            <h1>User Profile</h1>
+            <h5 style={{fontWeight: 'normal', color: 'lightseagreen'}}>You can update your profile below</h5>
+          </>
         )}
         {message && <Message variant='danger'>{message}</Message>}
         {error && <Message variant='danger'>{error}</Message>}

@@ -31,8 +31,10 @@ const RegisterScreen = () => {
     e.preventDefault()
     if (password !== confirmPassword) {
       setMessage('Passwords do not match')
-    } else {
+    }
+     else {
       dispatch(register(name, email, password))
+      setMessage('DONE')
     }
   }
 
@@ -45,6 +47,7 @@ const RegisterScreen = () => {
       <Form onSubmit={submitHandler}>
         <Form.Group className='mt-3' controlId='name'>
           <Form.Label>Name</Form.Label>
+          <Form.Label style = {{color: 'red'}}>*</Form.Label>
           <Form.Control
             type='name'
             placeholder='Enter name'
@@ -55,6 +58,7 @@ const RegisterScreen = () => {
 
         <Form.Group className='mt-3' controlId='email'>
           <Form.Label>Email Address</Form.Label>
+          <Form.Label style = {{color: 'red'}}>*</Form.Label>
           <Form.Control
             type='email'
             placeholder='Enter email'
@@ -65,6 +69,7 @@ const RegisterScreen = () => {
 
         <Form.Group className='mt-3' controlId='password'>
           <Form.Label>Password</Form.Label>
+          <Form.Label style = {{color: 'red'}}>*</Form.Label>
           <Form.Control
             type='password'
             placeholder='Enter password'
@@ -75,6 +80,7 @@ const RegisterScreen = () => {
 
         <Form.Group className='mt-3' controlId='confirmPassword'>
           <Form.Label>Confirm Password</Form.Label>
+          <Form.Label style = {{color: 'red'}}>*</Form.Label>
           <Form.Control
             type='password'
             placeholder='Confirm password'

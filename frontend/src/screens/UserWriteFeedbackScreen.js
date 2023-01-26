@@ -55,7 +55,8 @@ const UserWriteFeedbackScreen = () => {
     return (
       <>
   <FormContainer>
-  <h1>Write Feedback</h1>
+  <h1>Your Feedback Matters</h1>
+  <h5 style={{fontWeight: 'normal', color: 'lightseagreen'}}>Let us know how we can serve you better</h5>
   {successUserFeedback && (
           <Message variant='success'>
             Feedback submitted successfully
