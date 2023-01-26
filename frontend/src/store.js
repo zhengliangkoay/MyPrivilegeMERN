@@ -11,6 +11,7 @@ import {
   productUpdateReducer,
   productTopRatedReducer
 } from './reducers/productReducers'
+
 import { 
   userLoginReducer, 
   userRegisterReducer, 
@@ -20,14 +21,24 @@ import {
   userDeleteReducer,
   userUpdateReducer,
   userFeedbackCreateReducer,
+  userCreateStampReducer,
+  userRedeemStampReducer,
 } from './reducers/userReducers'
-import { promotionDetailsReducer, 
+
+import { 
+  promotionDetailsReducer, 
   promotionListReducer,
   promotionDeleteReducer,
   promotionCreateReducer,
   promotionUpdateReducer,
-
 } from './reducers/promotionReducers'
+
+import { 
+  voucherCreateReducer, 
+  voucherDeleteReducer, 
+  voucherDetailsReducer, 
+  voucherListReducer, 
+  voucherUpdateReducer } from './reducers/voucherReducers'
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -50,7 +61,14 @@ const reducer = combineReducers({
   promotionDetails: promotionDetailsReducer,
   promotionCreate: promotionCreateReducer,
   promotionDelete: promotionDeleteReducer,
-  promotionUpdate: promotionUpdateReducer
+  promotionUpdate: promotionUpdateReducer,
+  createStamp: userCreateStampReducer,
+  redeemStamp: userRedeemStampReducer,
+  voucherList: voucherListReducer,
+  voucherDetails: voucherDetailsReducer,
+  voucherCreate: voucherCreateReducer,
+  voucherUpdate: voucherUpdateReducer,
+  voucherDelete: voucherDeleteReducer
 })
 
 const middleware = [thunk]

@@ -19,7 +19,8 @@ import CartScreen from './screens/CartScreen';
 import UserWriteFeedbackScreen from './screens/UserWriteFeedbackScreen';
 import UserListFeedback from './screens/UserListFeedback';
 import { Container } from 'react-bootstrap'
-
+import RewardScreen from './screens/RewardScreen';
+import RewardEditScreen from './screens/RewardEditScreen';
 
 const App = () => {
   return (
@@ -34,6 +35,8 @@ const App = () => {
           <Route path = "/product/:id" element={<ProductScreen/>} />
           <Route path = "/cart/:id" element={<CartScreen/>} />
           <Route path= "/cart" element={<CartScreen/>} />
+          <Route path = "/reward" element={<RewardScreen/>} />
+          <Route path = "/admin/user/:id/reward" element={<RewardEditScreen/>} />
           <Route path= "/promotion" element={<PromotionScreen/>} />
           <Route path= "/promotion/:id" element={<PromotionDetailScreen/>} />
           <Route path = "/admin/userlist" element={<UserListScreen/>} />

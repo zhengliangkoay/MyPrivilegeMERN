@@ -57,6 +57,8 @@ let navigate = useNavigate();
               <th>EMAIL</th>
               <th>ADMIN</th>
               <th>NUMBER OF FEEDBACK</th>
+              <th>STAMP COUNT</th>
+              <th>MANAGE STAMP</th>
               <th></th>
             </tr>
           </thead>
@@ -76,6 +78,27 @@ let navigate = useNavigate();
                   )}
                 </td>
                 <td>{user.numFeedbacks}</td>
+                <td>{user.currentStamps ? user.currentStamps : '-'}</td>
+                <td>
+                {!user.isAdmin ? (
+                  <Link to={`/admin/user/${user._id}/reward`} > 
+                    <Button
+                    variant='light' 
+                    className='btn-sm' 
+                    style ={{margin : '0px 10px'}}>
+                    <i className='fas fa-trophy'/>
+                    </Button>
+                  </Link> 
+                ):(
+                    <Button
+                    variant='light'
+                    className='btn-sm' 
+                    style ={{margin : '0px 10px'}}
+                    disabled = 'true'>
+                    <i className='fas fa-trophy'/>
+                    </Button>
+                 )}
+                </td>
                 <td>
                   <Link to={`/admin/user/${user._id}/edit`} > 
                     <Button variant='light' className='btn-sm' style ={{margin : '0px 10px'}}>

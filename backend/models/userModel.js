@@ -17,6 +17,29 @@ const feedbackSchema = mongoose.Schema(
   }
 )
 
+const stampSchema = mongoose.Schema(
+  {
+    stampsAdded: {
+      type: Number,
+    },
+    stampsRedeem: {
+      type: Number,
+    },
+    createdUsername: {
+      type: String,
+      required: true,
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
+  },
+  {
+    timestamps: true,
+  }
+)
+
 const userSchema = mongoose.Schema(
   {
     name: {
@@ -38,6 +61,12 @@ const userSchema = mongoose.Schema(
       required: true,
       default: 0,
     },
+    currentStamps: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    stampsCollectHistory: [stampSchema],
     isAdmin: {
       type: Boolean,
       required: true,

@@ -13,7 +13,7 @@ const Header = () => {
   const { userInfo } = userLogin
   let navigate = useNavigate(); 
   const logoutHandler = () => {
-    if (window.confirm('Are you sure')) {
+    if (window.confirm('Confirm to log out?')) {
     dispatch(logout())
     return navigate('/login')
    }
@@ -21,6 +21,7 @@ const Header = () => {
 
   return (
     <header>
+     {/* User Side */}
     {(userInfo == null || !userInfo.isAdmin) ? (
       <Navbar collapseOnSelect bg="light" variant="light" expand="lg"  >
           <Container>
@@ -59,21 +60,26 @@ const Header = () => {
          
           {userInfo ? (
                 <NavDropdown title=<b>{userInfo.name}</b> id='username'>
-                  <NavDropdown.Item>
-                    <Nav.Link as={Link} to="/profile">
-                      <b>Profile</b>
-                    </Nav.Link>
-                  </NavDropdown.Item> 
-                  {userInfo && !userInfo.isAdmin && (
-                      <NavDropdown.Item>
-                      <Nav.Link as={Link} to="/feedback">
-                        <b>Write Feedback</b>
-                      </Nav.Link>
-                    </NavDropdown.Item> 
-                  )} 
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    <Nav.Link><b>Logout</b></Nav.Link>
-                  </NavDropdown.Item> 
+                        <NavDropdown.Item>
+                          <Nav.Link as={Link} to="/profile">
+                            <b>Profile</b>
+                          </Nav.Link>
+                        </NavDropdown.Item> 
+                        <NavDropdown.Item>
+                          <Nav.Link as={Link} to="/reward">
+                            <b>Rewards</b>
+                          </Nav.Link>
+                        </NavDropdown.Item> 
+                        {userInfo && !userInfo.isAdmin && (
+                            <NavDropdown.Item>
+                            <Nav.Link as={Link} to="/feedback">
+                              <b>Write Feedback</b>
+                            </Nav.Link>
+                          </NavDropdown.Item> 
+                        )} 
+                        <NavDropdown.Item onClick={logoutHandler}>
+                          <Nav.Link><b>Logout</b></Nav.Link>
+                        </NavDropdown.Item> 
                 </NavDropdown>
               ) : 
               <Nav.Link as={Link} to="/login"> 
@@ -81,23 +87,6 @@ const Header = () => {
               <b> Sign In </b>
               </Nav.Link> }
 
-              {userInfo && userInfo.isAdmin && (
-                <NavDropdown title=<b>Admin</b> id='adminMenu'>
-                  
-                <NavDropdown.Item>
-                  <Nav.Link as={Link} to="/admin/userlist">
-                    <b>Users</b>
-                  </Nav.Link>
-                </NavDropdown.Item> 
-
-                <NavDropdown.Item>
-                  <Nav.Link as={Link} to="admin/productlist">
-                    <b>Products</b>
-                  </Nav.Link>
-                </NavDropdown.Item> 
-
-              </NavDropdown>
-              )}
               </Nav>
           </Navbar.Collapse>
           </Container>
