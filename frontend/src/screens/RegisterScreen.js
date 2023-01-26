@@ -34,7 +34,7 @@ const RegisterScreen = () => {
     }
      else {
       dispatch(register(name, email, password))
-      setMessage('DONE')
+      setMessage(null)
     }
   }
 
