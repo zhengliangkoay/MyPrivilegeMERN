@@ -41,47 +41,6 @@ const ProductListScreen = (props) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  // const useSortableData = (item, config = null) => {
-  //   const [sortConfig, setSortConfig] = React.useState(null);
-
-  //   const sortedItems  = React.useMemo(() => {
-  //     let sortedProducts = [...productList.products];
-  //     if(sortConfig != null){
-  //       sortedProducts.sort((a, b) => {
-  //         if (a[sortConfig.key] < b[sortConfig.key]) {
-  //           return sortConfig.direction === 'ascending' ? -1 : 1;
-  //         }
-  //         if (a[sortConfig.key] > b[sortConfig.key]) {
-  //           return sortConfig.direction === 'ascending' ? 1 : -1;
-  //         }
-  //         return 0;
-  //       });
-  //     }
-  //     return sortedProducts;
-  //   }, [products, sortConfig]);
-  
-  
-  //   const requestSort = key => {
-  //     let direction = 'ascending';
-  //     if (sortConfig.key === key && sortConfig.direction === 'ascending') {
-  //       direction = 'descending';
-  //     }
-  //     setSortConfig({ key, direction });
-  //   }
-  //   return {item: sortedItems, requestSort };
-  // }
-
-  // const {item, requestSort, sortConfig } = useSortableData(products);
-
-  // const getClassNamesFor = (name) => {
-  //   if (!sortConfig) {
-  //     return;
-  //   }
-  //   return sortConfig.key === name ? sortConfig.direction : undefined;
-  // };
-
-  // console.log(sortConfig)
-
   let navigate = useNavigate();
 
   useEffect(() => {

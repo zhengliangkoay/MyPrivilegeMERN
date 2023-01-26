@@ -1,27 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import generatePDFUsers from "../services/GeneratePDFUsers";
-// import UsersComponent from "../components/UsersComponent";
-// import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux'
-import { listUsers } from '../actions/userActions'
+import { useSelector } from 'react-redux'
 
 const UsersPDF = () => {
-  
-  // const [users, setUsers] = useState([]);
-
-//   const dispatch = useDispatch()
 
   const userList = useSelector((state) => state.userList)
-  const { loading, error, users } = userList
-
-//   const userLogin = useSelector((state) => state.userLogin)
-//   const { userInfo } = userLogin
+  const { users } = userList
   
   useEffect(() => {
     const getAllUsers = async () => {
       try {
-        // const response  = await axios.get(`/api/users`);
-        // setUsers();
 
         console.log(users)
       } catch (err) {
@@ -29,13 +17,9 @@ const UsersPDF = () => {
       }
     };
     getAllUsers();
-    // if (userInfo && userInfo.isAdmin) {
-    //     dispatch(listUsers())
-    //   } 
   }, []);
 
 const reportUsers = users;
-// users.filter(user => user.isAdmin === false);
   
   return (
     <div>
@@ -51,7 +35,6 @@ const reportUsers = users;
        
         </div>
       </div>
-      {/* <UsersComponent users={users} /> */}
     </div>
   );
 };
