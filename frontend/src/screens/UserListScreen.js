@@ -31,10 +31,9 @@ let navigate = useNavigate();
   }, [dispatch, userInfo, successDelete, navigate])
 
   const deleteHandler = (id) => {
-    if (window.confirm('Are you sure')) {
+    if (window.confirm('Confirm to delete?')) {
       dispatch(deleteUser(id))
     }
-    console.log('delete')
   }
 
   return (
@@ -56,10 +55,11 @@ let navigate = useNavigate();
               <th>EMAIL</th>
               <th>ADMIN</th>
               <th>NUMBER OF FEEDBACK</th>
-              <th>VIEW FEEDBACKS</th>
               <th>STAMP COUNT</th>
               <th>MANAGE STAMP</th>
-              <th></th>
+              <th>VIEW FEEDBACKS</th>
+              <th>EDIT PROFILE</th>
+              <th>DELETE PROFILE</th>
             </tr>
           </thead>
           <tbody>
@@ -77,7 +77,7 @@ let navigate = useNavigate();
                     <i className='fas fa-times' style={{ color: 'red' }}></i>
                   )}
                 </td>
-                <td>{user.numFeedbacks}</td>
+                <td>{user.numFeedbacks ? user.numFeedbacks : '-'}</td>
                 <td>{user.currentStamps ? user.currentStamps : '-'}</td>
                 <td>
                 {!user.isAdmin ? (
@@ -129,6 +129,8 @@ let navigate = useNavigate();
                     <i className='fas fa-edit'/>
                     </Button>
                   </Link> 
+                  </td>
+                  <td>
                   <Button
                     variant='danger'
                     className='btn-sm'

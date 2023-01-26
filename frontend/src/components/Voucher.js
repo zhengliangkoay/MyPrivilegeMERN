@@ -43,11 +43,8 @@ const Voucher = ({voucher}) => {
 
     const redeemHandler = (e,id, stampsNeeded) => {
       if (window.confirm(stampsNeeded + ' stamps will be deducted upon confirmation. Do you want to proceed?')) {
-          e.preventDefault()  
-          console.log('voucherID' + id)
-          console.log('userId' +userInfo._id)
+          e.preventDefault();
           const noOfStampRedeem = stampsNeeded
-          console.log(noOfStampRedeem)
           //dispatch(updateVoucher({_id:userId, noOfStampEarned} ))
           dispatch(redeemStamp({_id:userInfo._id, noOfStampRedeem} ))
 

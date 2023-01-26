@@ -52,7 +52,7 @@ const ProfileScreen =  () => {
       setMessage('Passwords do not match')
     } else {
       dispatch(updateUserProfile({ id: user._id, name, email, password }))
-      setMessage(null)
+      setMessage('Profile successfully updated')
     }
   }
 

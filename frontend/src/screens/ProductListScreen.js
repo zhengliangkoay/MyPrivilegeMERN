@@ -13,7 +13,7 @@ import {
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants'
 import ProductsPDF from '../components/ProductsPDF'
 
-const ProductListScreen = (props) => {
+const ProductListScreen = () => {
   
   let params = useParams();
   const pageNumber = params.pageNumber || 1
@@ -66,7 +66,7 @@ const ProductListScreen = (props) => {
   ])
 
   const deleteHandler = (id) => {
-    if (window.confirm('Are you sure')) {
+    if (window.confirm('Confirm to delete?')) {
         dispatch(deleteProduct(id))
     }
   }
@@ -109,21 +109,13 @@ const ProductListScreen = (props) => {
             <thead>
               <tr>
                 <th>ID</th>
-                <th>
-                {/* <button
-                  type="button"
-                  onClick={() => requestSort('name')}
-                  className={getClassNamesFor('name')}
-                >
-                  NAME
-                </button> */}
-                NAME
-                </th>
+                <th>NAME</th>
                 <th>PRICE</th>
                 <th>CATEGORY</th>
                 <th>BRAND</th>
                 <th>STOCK</th>
-                <th></th>
+                <th>EDIT PRODUCT</th>
+                <th>DELETE PRODUCT</th>
               </tr>
             </thead>
             <tbody>
@@ -141,15 +133,17 @@ const ProductListScreen = (props) => {
                         <i className='fas fa-edit'></i>
                       </Button>
                     </Link>
-                    <Button
-                      variant='danger'
-                      className='btn-sm'
-                      style ={{margin : '0px 10px'}}
-                      onClick={() => deleteHandler(product._id)}
-                    >
-                      <i className='fas fa-trash'></i>
-                    </Button>
                   </td>
+                  <td>
+                  <Button
+                    variant='danger'
+                    className='btn-sm'
+                    style ={{margin : '0px 10px'}}
+                    onClick={() => deleteHandler(product._id)}
+                  >
+                    <i className='fas fa-trash'></i>
+                  </Button>
+                </td>
                 </tr>
               ))}
             </tbody>

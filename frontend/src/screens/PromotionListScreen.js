@@ -69,7 +69,7 @@ const PromotionListScreen = () => {
   ])
 
   const deleteHandler = (id) => {
-    if (window.confirm('Are you sure')) {
+    if (window.confirm('Confirm to delete?')) {
         dispatch(deletePromotion(id))
     }
   }
@@ -113,7 +113,8 @@ const PromotionListScreen = () => {
                 <th>DESCRIPTION</th>
                 <th>LAST UPDATED DATE</th>
                 <th>LAST UPDATED TIME</th>
-                <th></th>
+                <th>EDIT PROMO</th>
+                <th>DELETE PROMO</th>
               </tr>
             </thead>
             <tbody>
@@ -130,6 +131,8 @@ const PromotionListScreen = () => {
                         <i className='fas fa-edit'></i>
                       </Button>
                     </Link>
+                  </td>
+                  <td>
                     <Button
                       variant='danger'
                       className='btn-sm'
