@@ -38,6 +38,7 @@ import {
   voucherDeleteReducer, 
   voucherDetailsReducer, 
   voucherListReducer, 
+  voucherRedemptionUpdateReducer, 
   voucherUpdateReducer } from './reducers/voucherReducers'
 
 const reducer = combineReducers({
@@ -68,7 +69,8 @@ const reducer = combineReducers({
   voucherDetails: voucherDetailsReducer,
   voucherCreate: voucherCreateReducer,
   voucherUpdate: voucherUpdateReducer,
-  voucherDelete: voucherDeleteReducer
+  voucherDelete: voucherDeleteReducer,
+  voucherRedemptionUpdate: voucherRedemptionUpdateReducer,
 })
 
 const middleware = [thunk]

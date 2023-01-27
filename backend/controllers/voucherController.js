@@ -34,9 +34,9 @@ const createVoucher = asyncHandler(async (req, res) => {
     user: req.user._id,
     title: 'Sample title',
     subtitle: 'Sample subtitle',
-    voucherQty: 0,
-    image: '/images/sample.jpg',
     stampsNeeded: 0,
+    image: '/images/sample.jpg',
+    promoCode: 'Sample promo code',
     description: 'Sample description',
   })
 
@@ -51,7 +51,7 @@ const updateVoucher = asyncHandler(async (req, res) => {
   const {
     title,
     subtitle,
-    voucherQty,
+    promoCode,
     description,
     image,
     stampsNeeded
@@ -62,7 +62,7 @@ const updateVoucher = asyncHandler(async (req, res) => {
   if (voucher) {
     voucher.title = title
     voucher.subtitle = subtitle
-    voucher.voucherQty = voucherQty
+    voucher.promoCode = promoCode
     voucher.description = description
     voucher.image = image
     voucher.stampsNeeded = stampsNeeded
@@ -72,6 +72,27 @@ const updateVoucher = asyncHandler(async (req, res) => {
   } else {
     res.status(404)
     throw new Error('Voucher is not found')
+  }
+})
+
+// @desc    Update a voucher
+// @route   PUT /api/voucher/:id/redeem
+// @access  Private
+const updateVoucherRedemption = asyncHandler(async (req, res) => {
+  const {
+    isVoucherRedeem
+  } = req.body
+
+  const voucher = await Voucher.findById(req.params.id)
+
+  if (voucher) {
+    voucher.isVoucherRedeem = isVoucherRedeem
+
+    const updatedVoucher = await voucher.save()
+    res.json(updatedVoucher)
+  } else {
+    res.status(404)
+    throw new Error('Voucher redemption failed')
   }
 })
 
@@ -95,5 +116,6 @@ export {
     getVoucherById,
     createVoucher,
     updateVoucher,
-    deleteVoucher
+    deleteVoucher,
+    updateVoucherRedemption
   }

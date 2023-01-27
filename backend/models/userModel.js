@@ -25,9 +25,8 @@ const stampSchema = mongoose.Schema(
     stampsRedeem: {
       type: Number,
     },
-    createdUsername: {
+    voucherTitle: {
       type: String,
-      required: true,
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,

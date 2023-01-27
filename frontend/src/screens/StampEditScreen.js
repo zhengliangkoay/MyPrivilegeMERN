@@ -9,7 +9,7 @@ import FormContainer from '../components/FormContainer'
 import { getUserDetails, createStamp } from '../actions/userActions'
 import { USER_CREATE_STAMP_RESET } from '../constants/userConstants'
 
-const RewardEditScreen = () => {
+const StampEditScreen = () => {
   
   const params = useParams();
   const userId = params.id; 
@@ -60,7 +60,7 @@ const RewardEditScreen = () => {
       </Link>
       
       <FormContainer>
-        <h1>Manage Reward</h1>
+        <h1>Manage Stamps</h1>
           <Form onSubmit={submitHandler}>
             <Form.Group className='mt-3' controlId='name'>
               <Form.Label>Name</Form.Label>
@@ -90,6 +90,7 @@ const RewardEditScreen = () => {
                 type='currentStamps'
                 placeholder='Current Stamps'
                 value={currentStamps}
+                disabled='true'
                 onChange={(e) => setCurrentStamps(e.target.value)}
               ></Form.Control>
             </Form.Group>
@@ -116,4 +117,4 @@ const RewardEditScreen = () => {
   )
 }
 
-export default RewardEditScreen
+export default StampEditScreen

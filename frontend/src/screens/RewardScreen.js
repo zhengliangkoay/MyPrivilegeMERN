@@ -7,33 +7,29 @@ import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
 import { getUserDetails } from '../actions/userActions'
 import { USER_CREATE_STAMP_RESET, USER_REDEEM_STAMP_RESET } from '../constants/userConstants'
-import { collectStamp } from '../actions/userActions'
-import PullToRefresh from 'react-simple-pull-to-refresh';
 import Stamp from '../components/Stamp.js'
 import { ListGroup} from 'react-bootstrap'
 import { listVouchers } from '../actions/voucherActions'
 import Voucher from '../components/Voucher'
+import MyVoucher from '../components/MyVouchers'
 
 
 const RewardScreen = () => {
   
   const dispatch = useDispatch()
-  const params = useParams();
-  const {isShowStampsHistory} = false; 
-  const [stamp, setNoOfStamp] = useState(0)
   let stampsHistory = [];
 
   const userDetails = useSelector((state) => state.userDetails)
   const {user} = userDetails
-  console.log('User',user)
+  //console.log('User',user)
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-  console.log('Userinfo' ,userInfo)
+  //console.log('Userinfo' ,userInfo)
 
   const voucherList = useSelector(state => state.voucherList)
   const {loading, error, vouchers} = voucherList
-  //console.log(vouchers)
+  console.log(vouchers)
 
   useEffect(() => {
         dispatch(getUserDetails('profile'))
@@ -53,15 +49,11 @@ const RewardScreen = () => {
   //to show stamps history, change UTC to local date time
   if(user.stampsCollectHistory){  
   stampsHistory = user.stampsCollectHistory;
-  console.log(stampsHistory)
     for (let stampHistory of stampsHistory) {
       stampHistory.date= new Date(stampHistory.updatedAt).toLocaleDateString('en-US');
       stampHistory.time= new Date(stampHistory.updatedAt).toLocaleTimeString('en-US');
     }
   }
-    //console.log(stampsHistory)
-
-  let navigate = useNavigate();
 
   return (
     <><h1>Rewards</h1>
@@ -79,15 +71,35 @@ const RewardScreen = () => {
     </div>
 
   
-    <h1>Vouchers</h1>
+    <h1>Popular Vouchers</h1>
     {(vouchers.length > 0) ? (
       <>
-    <h5 style={{fontWeight: 'normal', color: 'lightseagreen'}}>Redeen & Use these vouchers now! Terms & Condition apply.</h5>
+    <h5 style={{fontWeight: 'normal', color: 'lightseagreen'}}>Redeen popular vouchers now! Terms & Condition apply.</h5>
       <Row>
             {vouchers.map((voucher) => (
+              !voucher.isVoucherRedeem && 
                 <Col key={voucher._id} sm={12} md={6} lg={4} xl={3}>
-                    <Voucher voucher= {voucher} />
+                    <Voucher voucher= {voucher} stamps ={user.currentStamps}/>
                 </Col>
+            ))}
+      </Row>
+      </>
+    ) : (
+      <h5 style={{fontWeight: 'normal', color: 'lightseagreen'}}>Something is wrong</h5>
+    ) 
+    }
+
+    <h1>My Vouchers</h1>
+    {(vouchers.length > 0) ? (
+      <>
+    <h5 style={{fontWeight: 'normal', color: 'lightseagreen'}}>Claim your vouchers before expired! Terms & Condition apply.</h5>
+      <Row>
+            {vouchers.map((voucher) => (
+              voucher.isVoucherRedeem && 
+                <Col key={voucher._id} sm={12} md={6} lg={4} xl={3}>
+                    <MyVoucher voucher= {voucher}/>
+                </Col>
+              
             ))}
       </Row>
       </>
@@ -118,6 +130,9 @@ const RewardScreen = () => {
               </ListGroup.Item>
               <ListGroup.Item variant="secondary" >
                 Date Time: {stamp.date}, {stamp.time} 
+              </ListGroup.Item>
+              <ListGroup.Item  variant="secondary" >
+                Voucher: {stamp.voucherTitle} 
               </ListGroup.Item>
         </ListGroup> )
         }

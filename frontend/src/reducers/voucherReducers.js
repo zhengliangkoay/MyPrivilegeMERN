@@ -90,3 +90,18 @@ export const voucherListReducer = (state = { vouchers: [] }, action) => {
         return state
     }
   }
+
+  export const voucherRedemptionUpdateReducer = (state = { voucher: {} }, action) => {
+    switch (action.type) {
+      case VOUCHER_UPDATE_REQUEST:
+        return { loading: true }
+      case VOUCHER_UPDATE_SUCCESS:
+        return { loading: false, success: true, voucher: action.payload }
+      case VOUCHER_UPDATE_FAIL:
+        return { loading: false, error: action.payload }
+      case VOUCHER_UPDATE_RESET:
+        return { voucher: {} }
+      default:
+        return state
+    }
+  }

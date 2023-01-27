@@ -244,7 +244,6 @@ const updateStamp = asyncHandler(async (req, res) => {
 
         const stamp = {
           stampsAdded : noOfStampEarned,
-          createdUsername: req.user.name,
           user: req.user._id,
         }
 
@@ -259,8 +258,8 @@ const updateStamp = asyncHandler(async (req, res) => {
 // // @access  Private
 const redeemStamp = asyncHandler(async (req, res) => {
 
-  const {noOfStampRedeem} = req.body
-
+  const {noOfStampRedeem, voucherTitle} = req.body
+  console.log(voucherTitle)
   const user = await User.findById(req.params.userId)
 
   if( !user ){
@@ -269,54 +268,15 @@ const redeemStamp = asyncHandler(async (req, res) => {
   } else {
     const stampCount = user.currentStamps;
     if ( stampCount >= parseInt(noOfStampRedeem) ) {
-      if( parseInt(noOfStampRedeem) == 1 ){
         const newTotal = stampCount - parseInt(noOfStampRedeem);
         user.currentStamps = newTotal
-        console.log("Free 1 drink")
 
         const stampRedeem = {
           stampsRedeem : parseInt(noOfStampRedeem),
-          createdUsername: req.user.name,
+          voucherTitle: voucherTitle,
           user: req.user._id,
         }
         user.stampsCollectHistory.push(stampRedeem)
-      }
-      else if ( parseInt(noOfStampRedeem) == 3 ){
-        const newTotal = stampCount - parseInt(noOfStampRedeem);
-        user.currentStamps = newTotal
-        console.log("Free 1 chicken burger")
-
-        const stampRedeem = {
-          stampsRedeem : parseInt(noOfStampRedeem),
-          createdUsername: req.user.name,
-          user: req.user._id,
-        }
-        user.stampsCollectHistory.push(stampRedeem)
-      }
-      else if ( parseInt(noOfStampRedeem) == 5 ){
-        const newTotal = stampCount - parseInt(noOfStampRedeem);
-        user.currentStamps = newTotal
-        console.log("Free 1 pasta")
-
-        const stampRedeem = {
-          stampsRedeem : parseInt(noOfStampRedeem),
-          createdUsername: req.user.name,
-          user: req.user._id,
-        }
-        user.stampsCollectHistory.push(stampRedeem)
-      }
-      else if ( parseInt(noOfStampRedeem) == 10 ){
-        const newTotal = stampCount - parseInt(noOfStampRedeem);
-        user.currentStamps = newTotal
-        console.log("Free 1 pizza")
-
-        const stampRedeem = {
-          stampsRedeem : parseInt(noOfStampRedeem),
-          createdUsername: req.user.name,
-          user: req.user._id,
-        }
-        user.stampsCollectHistory.push(stampRedeem)
-      }
       
       const updatedStamp = await user.save()
       res.json(updatedStamp)

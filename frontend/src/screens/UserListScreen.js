@@ -81,7 +81,7 @@ let navigate = useNavigate();
                 <td>{user.currentStamps ? user.currentStamps : '-'}</td>
                 <td>
                 {!user.isAdmin ? (
-                  <Link to={`/admin/user/${user._id}/reward`} > 
+                  <Link to={`/admin/user/${user._id}/stamp`} > 
                     <Button
                     variant='light' 
                     className='btn-sm' 

@@ -24,14 +24,18 @@ const voucherSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    voucherQty: {
-        type: Number,
+    promoCode: {
+        type: String,
         required: true,
     },
     stampsNeeded: {
         type: Number,
         required: true,
     },
+    isVoucherRedeem: {
+      type: Boolean,
+      default: false
+  },
   },
   {
     timestamps: true,
