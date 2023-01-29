@@ -58,38 +58,38 @@ const Header = () => {
           </Nav.Link>
 
          
-          {userInfo ? (
-                <NavDropdown title=<b>{userInfo.name}</b> id='username'>
-                        <NavDropdown.Item>
-                          <Nav.Link as={Link} to="/profile">
-                            <b>Profile</b>
-                          </Nav.Link>
-                        </NavDropdown.Item> 
-                        <NavDropdown.Item>
-                          <Nav.Link as={Link} to="/reward">
-                            <b>Rewards</b>
-                          </Nav.Link>
-                        </NavDropdown.Item> 
-                        {userInfo && !userInfo.isAdmin && (
-                            <NavDropdown.Item>
-                            <Nav.Link as={Link} to="/feedback">
-                              <b>Write Feedback</b>
-                            </Nav.Link>
-                          </NavDropdown.Item> 
-                        )} 
-                        <NavDropdown.Item onClick={logoutHandler}>
-                          <Nav.Link><b>Logout</b></Nav.Link>
-                        </NavDropdown.Item> 
-                </NavDropdown>
-              ) : 
-              <Nav.Link as={Link} to="/login"> 
-              <i className='fas fa-user'/>
-              <b> Sign In </b>
-              </Nav.Link> }
+    {userInfo ? (
+          <NavDropdown title=<b>{userInfo.name}</b> id='username'>
+                  <NavDropdown.Item>
+                    <Nav.Link as={Link} to="/profile">
+                      <b>Profile</b>
+                    </Nav.Link>
+                  </NavDropdown.Item> 
+                  <NavDropdown.Item>
+                    <Nav.Link as={Link} to="/reward">
+                      <b>Rewards</b>
+                    </Nav.Link>
+                  </NavDropdown.Item> 
+                  {userInfo && !userInfo.isAdmin && (
+                      <NavDropdown.Item>
+                      <Nav.Link as={Link} to="/feedback">
+                        <b>Write Feedback</b>
+                      </Nav.Link>
+                    </NavDropdown.Item> 
+                  )} 
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    <Nav.Link><b>Logout</b></Nav.Link>
+                  </NavDropdown.Item> 
+          </NavDropdown>
+        ) : 
+        <Nav.Link as={Link} to="/login"> 
+        <i className='fas fa-user'/>
+        <b> Sign In </b>
+        </Nav.Link> }
 
-              </Nav>
-          </Navbar.Collapse>
-          </Container>
+      </Nav>
+  </Navbar.Collapse>
+  </Container>
       </Navbar>
     ): (
       <Navbar collapseOnSelect bg="warning" variant="light" expand="lg"  >
