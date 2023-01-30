@@ -33,7 +33,7 @@ const GeneratePDFProducts = products => {
 
   doc.text("Product List Report", 14, 15);
 
-  doc.save(`UserReport_${dateStr}.pdf`);
+  doc.save(`ProductReport_${dateStr}.pdf`);
 };
 
 export default GeneratePDFProducts;

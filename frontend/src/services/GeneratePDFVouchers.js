@@ -40,7 +40,7 @@ const GeneratePDFVouchers = vouchers => {
 
   doc.text("Vouchers List Report", 14, 15);
 
-  doc.save(`vouchersReport_${dateStr}.pdf`);
+  doc.save(`VouchersReport_${dateStr}.pdf`);
 };
 
 export default GeneratePDFVouchers;

@@ -38,7 +38,7 @@ const GeneratePDFFeedbacks = feedbacks => {
 
   doc.text("Feedbacks List Report", 14, 15);
 
-  doc.save(`feedbacksReport_${dateStr}.pdf`);
+  doc.save(`FeedbacksReport_${dateStr}.pdf`);
 };
 
 export default GeneratePDFFeedbacks;

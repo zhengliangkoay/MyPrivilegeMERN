@@ -38,7 +38,7 @@ const GeneratePDFPromotions = promotions => {
 
   doc.text("Promotions List Report", 14, 15);
 
-  doc.save(`promotionsReport_${dateStr}.pdf`);
+  doc.save(`PromotionsReport_${dateStr}.pdf`);
 };
 
 export default GeneratePDFPromotions;
